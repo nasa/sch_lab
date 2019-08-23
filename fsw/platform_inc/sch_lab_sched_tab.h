@@ -27,11 +27,6 @@
 **
 ** Notes:
 **
-** $Log: sch_lab_sched_tab.h  $
-** Revision 1.1 2014/07/17 12:36:57GMT-05:00 acudmore 
-** Initial revision
-** Member added to project c:/MKSDATA/MKS-REPOSITORY/MKS-CFE-PROJECT/tools/sch_lab/fsw/platform_inc/project.pj
-**
 *************************************************************************/
 
 

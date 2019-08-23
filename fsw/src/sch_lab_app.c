@@ -25,20 +25,6 @@
 **
 ** Notes:
 **
-** $Log: sch_lab_app.c  $
-** Revision 1.5 2014/07/17 12:36:12GMT-05:00 acudmore 
-** Created schedule table in platform_inc header file.
-** Revision 1.4 2010/11/17 08:12:58EST wmoleski 
-** The TO_Lab_APP, CI_Lab_APP and SCH_Lab_APP did not compile with cFE6.1.0.An include statement of cfe_error.h needed to be added to each app.
-** Revision 1.3 2010/09/20 13:28:52EDT wmoleski 
-** Modified the CI_LAB, SCH_LAB and TO_LAB applications to use unique message IDs and Pipe Names. The "_LAB" was
-** added to all definitions so that a mission can use these "Lab" apps as well as their own mission apps together.
-** Revision 1.2 2008/09/19 15:31:17EDT rjmcgraw 
-** DCR4337:1 Added #include version.h and display version after initialization is complete
-** Revision 1.1 2008/04/30 16:07:53EDT rjmcgraw 
-** Initial revision
-** Member added to project c:/MKSDATA/MKS-REPOSITORY/CFS-REPOSITORY/sch_lab/fsw/src/project.pj
-**
 *************************************************************************/
 
 /*
