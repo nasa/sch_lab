@@ -11,4 +11,4 @@ aux_source_directory(fsw/src APP_SRC_FILES)
 
 # Create the app module
 add_cfe_app(sch_lab ${APP_SRC_FILES})
-
+add_cfe_tables(sch_lab_table fsw/src/sch_lab_table.c)
