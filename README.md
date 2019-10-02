@@ -9,8 +9,10 @@ sch_lab is a simple packet scheduler application with a one second resoluton.
 To change the list of packets that sch_lab sends out, edit the schedule table located in the platform include file:
 fsw/platform_inc/sch_lab_sched_tab.h
 
-## Release Notes
+## Version Notes
 
+- 2.3.1:
+  - Minor updates (see https://github.com/nasa/sch_lab/pull/16)
 - 2.3.0:
   - Minor updates (see https://github.com/nasa/sch_lab/pull/13)
   - Not backwards compatible with OSAL 4.2.1
