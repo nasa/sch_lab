@@ -30,7 +30,7 @@
 /*
 ** Include Files
 */
-
+#include "cfe.h"
 #include "cfe_sb.h"
 #include "osapi.h"
 #include "cfe_es.h"
@@ -47,8 +47,12 @@
 /*
 ** Global Variables
 */
-CFE_SB_CmdHdr_t  SCH_CmdHeaderTable[SCH_LAB_MAX_SCHEDULE_ENTRIES];
-CFE_SB_Msg_t    *SCH_CmdPipePktPtr;
+CFE_SB_CmdHdr_t          SCH_CmdHeaderTable[SCH_LAB_MAX_SCHEDULE_ENTRIES];
+CFE_TBL_Handle_t         TblHandles;
+SCH_LAB_ScheduleTable_t  *MySchTBL;
+
+CFE_SB_Msg_t             *SCH_CmdPipePktPtr;
+CFE_SB_PipeId_t          SCH_CmdPipe;
 
 /*
 ** AppMain
@@ -56,62 +60,43 @@ CFE_SB_Msg_t    *SCH_CmdPipePktPtr;
 void SCH_Lab_AppMain(void)
 {
     int              i;
-    int32            rtnStat;
     uint32           SCH_OneHzPktsRcvd = 0;
-    uint32           RunStatus = CFE_ES_RunStatus_APP_RUN;
-    CFE_SB_PipeId_t  SCH_CmdPipe;
+    uint32           Status = CFE_SUCCESS;
+    uint32           RunStatus = CFE_ES_APP_RUN;
 
     CFE_ES_PerfLogEntry(SCH_MAIN_TASK_PERF_ID);
 
     CFE_ES_RegisterApp();
 
-    /*
-    ** Initialize the command headers
-    */
-    for (i = 0; i < SCH_LAB_MAX_SCHEDULE_ENTRIES; i++) 
+    Status = SCH_LAB_AppInit();
+    if ( Status != CFE_SUCCESS )
     {
-         if ( SCH_LAB_ScheduleTable[i].MessageID != SCH_LAB_END_OF_TABLE )
-         {   
-              CFE_SB_InitMsg(&SCH_CmdHeaderTable[i],
-                              SCH_LAB_ScheduleTable[i].MessageID,
-                                sizeof(CFE_SB_CmdHdr_t), true);
-         } 
-         else
-         {
-              break;
-         }
-    }
+        CFE_ES_WriteToSysLog("SCHEULE APP: Error Initializing RC = 0x%08X\n", Status);
 
-    /* Create pipe and subscribe to the 1Hz pkt */
-    rtnStat = CFE_SB_CreatePipe(&SCH_CmdPipe,8,"SCH_LAB_CMD_PIPE");
-    if ( rtnStat != CFE_SUCCESS )
+    } 
+   
+    /*
+    ** Manage Table 
+    */
+    Status = CFE_TBL_Manage(TblHandles);  
+    if ( Status != CFE_SUCCESS )
     {
-       OS_printf("SCH Error creating pipe!\n");
-    }
-       
-    rtnStat = CFE_SB_Subscribe(CFE_TIME_1HZ_CMD_MID,SCH_CmdPipe);
-    if ( rtnStat != CFE_SUCCESS )
-    {
-       OS_printf("SCH Error subscribing to 1hz!\n");
-    }
-    
-    OS_printf ("SCH Lab Initialized.  Version %d.%d.%d.%d\n",
-                SCH_LAB_MAJOR_VERSION,
-                SCH_LAB_MINOR_VERSION, 
-                SCH_LAB_REVISION, 
-                SCH_LAB_MISSION_REV);    
+        CFE_ES_WriteToSysLog("SCHEULE APP: Error managing table  RC = 0x%08X\n", Status);
+        CFE_TBL_ReleaseAddress(TblHandles);
+
+    }  
 
     /* Loop Forever */
-    while (CFE_ES_RunLoop(&RunStatus) == true)
+    while (CFE_ES_RunLoop(&RunStatus) == TRUE)
     {
         CFE_ES_PerfLogExit(SCH_MAIN_TASK_PERF_ID);
 
         /* Pend on receipt of 1Hz packet */
-        rtnStat = CFE_SB_RcvMsg(&SCH_CmdPipePktPtr,SCH_CmdPipe,CFE_SB_PEND_FOREVER);
+        Status = CFE_SB_RcvMsg(&SCH_CmdPipePktPtr,SCH_CmdPipe,CFE_SB_PEND_FOREVER);
 
         CFE_ES_PerfLogEntry(SCH_MAIN_TASK_PERF_ID);
 
-        if(rtnStat == CFE_SUCCESS)
+        if(Status == CFE_SUCCESS)
         {
             SCH_OneHzPktsRcvd++;
             /*
@@ -119,12 +104,12 @@ void SCH_Lab_AppMain(void)
             */
             for (i = 0; i < SCH_LAB_MAX_SCHEDULE_ENTRIES; i++) 
             {
-                if ( SCH_LAB_ScheduleTable[i].MessageID != SCH_LAB_END_OF_TABLE )
+                if ( MySchTBL->MessageID[i] != SCH_LAB_END_OF_TABLE )
                 { 
-                      SCH_LAB_ScheduleTable[i].Counter++;
-                      if ( SCH_LAB_ScheduleTable[i].Counter >= SCH_LAB_ScheduleTable[i].PacketRate )
+                      MySchTBL->Counter[i]++;
+                      if (MySchTBL->Counter[i] >= MySchTBL->PacketRate[i] )
                       {
-                          SCH_LAB_ScheduleTable[i].Counter = 0;
+                          MySchTBL->Counter[i] = 0;
                           CFE_SB_SendMsg((CFE_SB_MsgPtr_t)&SCH_CmdHeaderTable[i]);
                       }
                 } 
@@ -137,6 +122,124 @@ void SCH_Lab_AppMain(void)
 
     }/* end while */
     
-    CFE_ES_ExitApp(RunStatus);
+    /*
+    ** Release the table
+    */
+    Status = CFE_TBL_ReleaseAddress(TblHandles);
+    if ( Status != CFE_SUCCESS )
+    {
+        CFE_ES_WriteToSysLog("SCHEULE APP: Error Releasing Table \
+                              SCH_LAB_SchTbl, RC = 0x%08X\n", Status);
+
+    }
+
+    CFE_ES_ExitApp( Status );
     
 }/* end SCH_Lab_AppMain */
+
+/* * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * */ 
+/*                                                                 */ 
+/* SCH_LAB_AppInit() -- initialization                                     */ 
+/*                                                                 */ 
+/* * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * */
+int32 SCH_LAB_AppInit(void)
+{ 
+    int              i;
+    int32            Status;
+
+    /*
+    ** Register tables with cFE and load default data
+    */
+    Status = CFE_TBL_Register(&TblHandles, 
+                              "SCH_LAB_SchTbl",
+                              sizeof(SCH_LAB_ScheduleTable_t), 
+                              CFE_TBL_OPT_DEFAULT, 
+                              &SCH_LAB_TblValidation);
+    if ( Status != CFE_SUCCESS )
+    {
+        CFE_ES_WriteToSysLog("SCHEULE APP: Error Registering \
+                              SCH_LAB_SchTbl, RC = 0x%08X\n", Status);
+
+        return ( Status );
+    }
+    else
+    {
+        /*
+        ** Loading Table
+        */
+        Status = CFE_TBL_Load(TblHandles, CFE_TBL_SRC_FILE, SCH_TBL_DEFAULT_FILE);
+        if ( Status != CFE_SUCCESS )
+        {
+            CFE_ES_WriteToSysLog("SCHEULE APP: Error Loading Table \
+                                  SCH_LAB_SchTbl, RC = 0x%08X\n", Status);
+            CFE_TBL_ReleaseAddress(TblHandles);
+
+            return ( Status );
+        }
+    }
+
+    /*
+    ** Get Table Address
+    */ 
+    Status = CFE_TBL_GetAddress((void **)&MySchTBL, TblHandles);
+    if ( Status != CFE_TBL_INFO_UPDATED )
+    {
+        CFE_ES_WriteToSysLog("SCHEULE APP: Error Getting Table's Address \
+                              SCH_LAB_SchTbl, RC = 0x%08X\n", Status);
+
+        return ( Status );
+    }
+    
+    /*
+    ** Initialize the command headers
+    */
+    for (i = 0; i < SCH_LAB_MAX_SCHEDULE_ENTRIES; i++) 
+    {
+         if ( MySchTBL->MessageID[i] != SCH_LAB_END_OF_TABLE )
+         {   
+              CFE_SB_InitMsg(&SCH_CmdHeaderTable[i],
+                              MySchTBL->MessageID[i],
+                              sizeof(CFE_SB_CmdHdr_t), TRUE);
+         } 
+         else
+         {
+              break;
+         }
+    }
+
+    /* Create pipe and subscribe to the 1Hz pkt */
+    Status = CFE_SB_CreatePipe(&SCH_CmdPipe,8,"SCH_LAB_CMD_PIPE");
+    if ( Status != CFE_SUCCESS )
+    {
+       OS_printf("SCH Error creating pipe!\n");
+    }
+       
+    Status = CFE_SB_Subscribe(CFE_TIME_1HZ_CMD_MID,SCH_CmdPipe);
+    if ( Status != CFE_SUCCESS )
+    {
+       OS_printf("SCH Error subscribing to 1hz!\n");
+    }
+    
+    OS_printf ("SCH Lab Initialized.  Version %d.%d.%d.%d\n",
+                SCH_LAB_MAJOR_VERSION,
+                SCH_LAB_MINOR_VERSION, 
+                SCH_LAB_REVISION, 
+                SCH_LAB_MISSION_REV);
+
+    return( CFE_SUCCESS );    
+
+}/*End of AppInit*/
+
+/* * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * */ 
+/*                                                                 */ 
+/* SCH_LAB_TblValidation() - Validate Table                             */ 
+/*                                                                 */ 
+/* * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * */
+int32 SCH_LAB_TblValidation(void *MySchTBL)
+{
+
+    /*Write Validation Code Here*/
+
+    return( CFE_SUCCESS );
+}/*End of SchTblValidation*/
+
