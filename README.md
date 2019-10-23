@@ -11,6 +11,8 @@ fsw/platform_inc/sch_lab_sched_tab.h
 
 ## Version Notes
 
+- 2.3.2:
+  - Table definition include update (see https://github.com/nasa/sch_lab/pull/18)
 - 2.3.1:
   - Minor updates (see https://github.com/nasa/sch_lab/pull/16)
 - 2.3.0:
