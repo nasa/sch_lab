@@ -30,6 +30,7 @@
 *************************************************************************/
 
 
+#include "cfe_sb_extern_typedefs.h"  /* for CFE_SB_MsgId_t */
 #include "cfe_msgids.h"
 
 /*
