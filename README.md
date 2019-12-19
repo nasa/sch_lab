@@ -15,11 +15,12 @@ fsw/platform_inc/sch_lab_sched_tab.h
   - Table definition include update (see https://github.com/nasa/sch_lab/pull/18)
 - 2.3.1:
   - Minor updates (see https://github.com/nasa/sch_lab/pull/16)
-- 2.3.0:
+- **2.3.0 OFFICIAL RELEASE**:
   - Minor updates (see https://github.com/nasa/sch_lab/pull/13)
   - Not backwards compatible with OSAL 4.2.1
-- **2.2.0a OFFICIAL RELEASE **:
-  - Released as part of cFE 6.6.0a under the Apache 2.0 license, see [LICENSE](LICENSE-18128-Apache-2_0.pdf).
+  - Released as part of cFE 6.7.0, Apache 2.0
+- **2.2.0a OFFICIAL RELEASE**:
+  - Released as part of cFE 6.6.0a, Apache 2.0
 
 ## Known issues
 
