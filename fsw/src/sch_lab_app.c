@@ -214,7 +214,7 @@ int32 SCH_LAB_AppInit(void)
         if (ConfigEntry->PacketRate != 0)
         {
             CFE_SB_InitMsg(&LocalStateEntry->MsgBuf.MsgHdr,
-                    CFE_SB_ValueToMsgId(ConfigEntry->MessageID),
+                    ConfigEntry->MessageID,
                     sizeof(LocalStateEntry->MsgBuf), true);
             LocalStateEntry->PacketRate = ConfigEntry->PacketRate;
         }
