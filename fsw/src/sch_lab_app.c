@@ -71,7 +71,8 @@ void SCH_Lab_AppMain(void)
     Status = SCH_LAB_AppInit();
     if ( Status != CFE_SUCCESS )
     {
-        CFE_ES_WriteToSysLog("SCHEULE APP: Error Initializing RC = 0x%08X\n", Status);
+        CFE_ES_WriteToSysLog("SCH_LAB: Error Initializing RC = 0x%08lX\n",
+                (unsigned long)Status);
 
     } 
    
@@ -81,7 +82,8 @@ void SCH_Lab_AppMain(void)
     Status = CFE_TBL_Manage(TblHandles);  
     if ( Status != CFE_SUCCESS )
     {
-        CFE_ES_WriteToSysLog("SCHEULE APP: Error managing table  RC = 0x%08X\n", Status);
+        CFE_ES_WriteToSysLog("SCH_LAB: Error managing table  RC = 0x%08lX\n",
+                (unsigned long)Status);
         CFE_TBL_ReleaseAddress(TblHandles);
 
     }  
@@ -128,8 +130,8 @@ void SCH_Lab_AppMain(void)
     Status = CFE_TBL_ReleaseAddress(TblHandles);
     if ( Status != CFE_SUCCESS )
     {
-        CFE_ES_WriteToSysLog("SCHEULE APP: Error Releasing Table \
-                              SCH_LAB_SchTbl, RC = 0x%08X\n", Status);
+        CFE_ES_WriteToSysLog("SCH_LAB: Error Releasing Table SCH_LAB_SchTbl, RC = 0x%08lX\n",
+                              (unsigned long)Status);
 
     }
 
@@ -157,8 +159,8 @@ int32 SCH_LAB_AppInit(void)
                               &SCH_LAB_TblValidation);
     if ( Status != CFE_SUCCESS )
     {
-        CFE_ES_WriteToSysLog("SCHEULE APP: Error Registering \
-                              SCH_LAB_SchTbl, RC = 0x%08X\n", Status);
+        CFE_ES_WriteToSysLog("SCH_LAB: Error Registering SCH_LAB_SchTbl, RC = 0x%08lX\n",
+                (unsigned long)Status);
 
         return ( Status );
     }
@@ -170,8 +172,8 @@ int32 SCH_LAB_AppInit(void)
         Status = CFE_TBL_Load(TblHandles, CFE_TBL_SRC_FILE, SCH_TBL_DEFAULT_FILE);
         if ( Status != CFE_SUCCESS )
         {
-            CFE_ES_WriteToSysLog("SCHEULE APP: Error Loading Table \
-                                  SCH_LAB_SchTbl, RC = 0x%08X\n", Status);
+            CFE_ES_WriteToSysLog("SCH_LAB: Error Loading Table SCH_LAB_SchTbl, RC = 0x%08lX\n",
+                    (unsigned long)Status);
             CFE_TBL_ReleaseAddress(TblHandles);
 
             return ( Status );
@@ -184,8 +186,8 @@ int32 SCH_LAB_AppInit(void)
     Status = CFE_TBL_GetAddress((void **)&MySchTBL, TblHandles);
     if ( Status != CFE_TBL_INFO_UPDATED )
     {
-        CFE_ES_WriteToSysLog("SCHEULE APP: Error Getting Table's Address \
-                              SCH_LAB_SchTbl, RC = 0x%08X\n", Status);
+        CFE_ES_WriteToSysLog("SCH_LAB: Error Getting Table's Address SCH_LAB_SchTbl, RC = 0x%08lX\n",
+                (unsigned long)Status);
 
         return ( Status );
     }
