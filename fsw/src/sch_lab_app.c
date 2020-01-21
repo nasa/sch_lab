@@ -184,7 +184,8 @@ int32 SCH_LAB_AppInit(void)
     ** Get Table Address
     */ 
     Status = CFE_TBL_GetAddress((void **)&MySchTBL, TblHandles);
-    if ( Status != CFE_TBL_INFO_UPDATED )
+    if ( Status != CFE_SUCCESS &&
+         Status != CFE_TBL_INFO_UPDATED )
     {
         CFE_ES_WriteToSysLog("SCH_LAB: Error Getting Table's Address SCH_LAB_SchTbl, RC = 0x%08lX\n",
                 (unsigned long)Status);
