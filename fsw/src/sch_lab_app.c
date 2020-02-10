@@ -49,9 +49,15 @@
 /*
 ** Global Structure
 */
+typedef union
+{
+    CFE_SB_Msg_t            MsgHdr;
+    CFE_SB_CmdHdr_t         CommandHeader;
+} SCH_LAB_MessageBuffer_t;
+
 typedef struct
 {
-    CFE_SB_CmdHdr_t          CmdHeaderTable[SCH_LAB_MAX_SCHEDULE_ENTRIES];
+    SCH_LAB_MessageBuffer_t  MsgBuf[SCH_LAB_MAX_SCHEDULE_ENTRIES];
     CFE_TBL_Handle_t         TblHandle;
     SCH_LAB_ScheduleTable_t  *MySchTBL;
 
@@ -124,7 +130,7 @@ void SCH_Lab_AppMain(void)
                       if (SCH_LAB_Global.MySchTBL->Counter[i] >= SCH_LAB_Global.MySchTBL->PacketRate[i] )
                       {
                           SCH_LAB_Global.MySchTBL->Counter[i] = 0;
-                          CFE_SB_SendMsg((CFE_SB_MsgPtr_t)&SCH_LAB_Global.CmdHeaderTable[i]);
+                          CFE_SB_SendMsg(&SCH_LAB_Global.MsgBuf[i].MsgHdr);
                       }
                 } 
                 else
@@ -214,7 +220,7 @@ int32 SCH_LAB_AppInit(void)
     {
          if ( SCH_LAB_Global.MySchTBL->MessageID[i] != SCH_LAB_END_OF_TABLE )
          {   
-              CFE_SB_InitMsg(&SCH_LAB_Global.CmdHeaderTable[i],
+              CFE_SB_InitMsg(&SCH_LAB_Global.MsgBuf[i].MsgHdr,
                               SCH_LAB_Global.MySchTBL->MessageID[i],
                               sizeof(CFE_SB_CmdHdr_t), true);
          } 
