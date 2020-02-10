@@ -30,6 +30,8 @@
 /*
 ** Include Files
 */
+#include <string.h>
+
 #include "cfe.h"
 #include "cfe_sb.h"
 #include "osapi.h"
@@ -45,14 +47,24 @@
 #include "sch_lab_sched_tab.h"
 
 /*
+** Global Structure
+*/
+typedef struct
+{
+    CFE_SB_CmdHdr_t          CmdHeaderTable[SCH_LAB_MAX_SCHEDULE_ENTRIES];
+    CFE_TBL_Handle_t         TblHandle;
+    SCH_LAB_ScheduleTable_t  *MySchTBL;
+
+    CFE_SB_Msg_t             *CmdPipePktPtr;
+    CFE_SB_PipeId_t          CmdPipe;
+
+} SCH_LAB_GlobalData_t;
+
+/*
 ** Global Variables
 */
-CFE_SB_CmdHdr_t          SCH_CmdHeaderTable[SCH_LAB_MAX_SCHEDULE_ENTRIES];
-CFE_TBL_Handle_t         TblHandles;
-SCH_LAB_ScheduleTable_t  *MySchTBL;
+SCH_LAB_GlobalData_t    SCH_LAB_Global;
 
-CFE_SB_Msg_t             *SCH_CmdPipePktPtr;
-CFE_SB_PipeId_t          SCH_CmdPipe;
 
 /*
 ** AppMain
@@ -79,12 +91,12 @@ void SCH_Lab_AppMain(void)
     /*
     ** Manage Table 
     */
-    Status = CFE_TBL_Manage(TblHandles);  
+    Status = CFE_TBL_Manage(SCH_LAB_Global.TblHandle);
     if ( Status != CFE_SUCCESS )
     {
         CFE_ES_WriteToSysLog("SCH_LAB: Error managing table  RC = 0x%08lX\n",
                 (unsigned long)Status);
-        CFE_TBL_ReleaseAddress(TblHandles);
+        CFE_TBL_ReleaseAddress(SCH_LAB_Global.TblHandle);
 
     }  
 
@@ -94,7 +106,7 @@ void SCH_Lab_AppMain(void)
         CFE_ES_PerfLogExit(SCH_MAIN_TASK_PERF_ID);
 
         /* Pend on receipt of 1Hz packet */
-        Status = CFE_SB_RcvMsg(&SCH_CmdPipePktPtr,SCH_CmdPipe,CFE_SB_PEND_FOREVER);
+        Status = CFE_SB_RcvMsg(&SCH_LAB_Global.CmdPipePktPtr,SCH_LAB_Global.CmdPipe,CFE_SB_PEND_FOREVER);
 
         CFE_ES_PerfLogEntry(SCH_MAIN_TASK_PERF_ID);
 
@@ -106,13 +118,13 @@ void SCH_Lab_AppMain(void)
             */
             for (i = 0; i < SCH_LAB_MAX_SCHEDULE_ENTRIES; i++) 
             {
-                if ( MySchTBL->MessageID[i] != SCH_LAB_END_OF_TABLE )
+                if ( SCH_LAB_Global.MySchTBL->MessageID[i] != SCH_LAB_END_OF_TABLE )
                 { 
-                      MySchTBL->Counter[i]++;
-                      if (MySchTBL->Counter[i] >= MySchTBL->PacketRate[i] )
+                      SCH_LAB_Global.MySchTBL->Counter[i]++;
+                      if (SCH_LAB_Global.MySchTBL->Counter[i] >= SCH_LAB_Global.MySchTBL->PacketRate[i] )
                       {
-                          MySchTBL->Counter[i] = 0;
-                          CFE_SB_SendMsg((CFE_SB_MsgPtr_t)&SCH_CmdHeaderTable[i]);
+                          SCH_LAB_Global.MySchTBL->Counter[i] = 0;
+                          CFE_SB_SendMsg((CFE_SB_MsgPtr_t)&SCH_LAB_Global.CmdHeaderTable[i]);
                       }
                 } 
                 else
@@ -127,7 +139,7 @@ void SCH_Lab_AppMain(void)
     /*
     ** Release the table
     */
-    Status = CFE_TBL_ReleaseAddress(TblHandles);
+    Status = CFE_TBL_ReleaseAddress(SCH_LAB_Global.TblHandle);
     if ( Status != CFE_SUCCESS )
     {
         CFE_ES_WriteToSysLog("SCH_LAB: Error Releasing Table SCH_LAB_SchTbl, RC = 0x%08lX\n",
@@ -149,10 +161,12 @@ int32 SCH_LAB_AppInit(void)
     int              i;
     int32            Status;
 
+    memset(&SCH_LAB_Global, 0, sizeof(SCH_LAB_Global));
+
     /*
     ** Register tables with cFE and load default data
     */
-    Status = CFE_TBL_Register(&TblHandles, 
+    Status = CFE_TBL_Register(&SCH_LAB_Global.TblHandle,
                               "SCH_LAB_SchTbl",
                               sizeof(SCH_LAB_ScheduleTable_t), 
                               CFE_TBL_OPT_DEFAULT, 
@@ -169,12 +183,12 @@ int32 SCH_LAB_AppInit(void)
         /*
         ** Loading Table
         */
-        Status = CFE_TBL_Load(TblHandles, CFE_TBL_SRC_FILE, SCH_TBL_DEFAULT_FILE);
+        Status = CFE_TBL_Load(SCH_LAB_Global.TblHandle, CFE_TBL_SRC_FILE, SCH_TBL_DEFAULT_FILE);
         if ( Status != CFE_SUCCESS )
         {
             CFE_ES_WriteToSysLog("SCH_LAB: Error Loading Table SCH_LAB_SchTbl, RC = 0x%08lX\n",
                     (unsigned long)Status);
-            CFE_TBL_ReleaseAddress(TblHandles);
+            CFE_TBL_ReleaseAddress(SCH_LAB_Global.TblHandle);
 
             return ( Status );
         }
@@ -183,7 +197,7 @@ int32 SCH_LAB_AppInit(void)
     /*
     ** Get Table Address
     */ 
-    Status = CFE_TBL_GetAddress((void **)&MySchTBL, TblHandles);
+    Status = CFE_TBL_GetAddress((void **)&SCH_LAB_Global.MySchTBL, SCH_LAB_Global.TblHandle);
     if ( Status != CFE_SUCCESS &&
          Status != CFE_TBL_INFO_UPDATED )
     {
@@ -198,10 +212,10 @@ int32 SCH_LAB_AppInit(void)
     */
     for (i = 0; i < SCH_LAB_MAX_SCHEDULE_ENTRIES; i++) 
     {
-         if ( MySchTBL->MessageID[i] != SCH_LAB_END_OF_TABLE )
+         if ( SCH_LAB_Global.MySchTBL->MessageID[i] != SCH_LAB_END_OF_TABLE )
          {   
-              CFE_SB_InitMsg(&SCH_CmdHeaderTable[i],
-                              MySchTBL->MessageID[i],
+              CFE_SB_InitMsg(&SCH_LAB_Global.CmdHeaderTable[i],
+                              SCH_LAB_Global.MySchTBL->MessageID[i],
                               sizeof(CFE_SB_CmdHdr_t), true);
          } 
          else
@@ -211,13 +225,13 @@ int32 SCH_LAB_AppInit(void)
     }
 
     /* Create pipe and subscribe to the 1Hz pkt */
-    Status = CFE_SB_CreatePipe(&SCH_CmdPipe,8,"SCH_LAB_CMD_PIPE");
+    Status = CFE_SB_CreatePipe(&SCH_LAB_Global.CmdPipe,8,"SCH_LAB_CMD_PIPE");
     if ( Status != CFE_SUCCESS )
     {
        OS_printf("SCH Error creating pipe!\n");
     }
        
-    Status = CFE_SB_Subscribe(CFE_TIME_1HZ_CMD_MID,SCH_CmdPipe);
+    Status = CFE_SB_Subscribe(CFE_TIME_1HZ_CMD_MID,SCH_LAB_Global.CmdPipe);
     if ( Status != CFE_SUCCESS )
     {
        OS_printf("SCH Error subscribing to 1hz!\n");
