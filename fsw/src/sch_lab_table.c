@@ -35,54 +35,25 @@
 
 SCH_LAB_ScheduleTable_t  SCH_TBL_Structure = 
 {
-
-    { 
-        CFE_ES_SEND_HK_MID,
-        CFE_EVS_SEND_HK_MID,
-        CFE_TIME_SEND_HK_MID,
-        CFE_SB_SEND_HK_MID,
-        CFE_TBL_SEND_HK_MID,
-        CI_LAB_SEND_HK_MID,
-        TO_LAB_SEND_HK_MID,
-        SAMPLE_APP_SEND_HK_MID,
-
-        SCH_LAB_END_OF_TABLE          
-    },
-    { /*Packet Rate*/
-        4,  /*ES*/
-        4,  /*EVS*/
-        4,  /*Time*/
-        4,  /*SB*/
-        4,  /*TBL*/
-        4,  /*CI_LAB*/
-        4,  /*TO_LAB*/
-        4,  /*SAMPLE_LAB*/
-        
-        0   /*END OF TABLE*/
-    },
-    {/*Counter*/
-        0,  /*ES*/
-        0,  /*EVS*/
-        0,  /*Time*/
-        0,  /*SB*/
-        0,  /*TBL*/
-        0,  /*CI_LAB*/
-        0,  /*TO_LAB*/
-        0,  /*SAMPLE_LAB*/
-        
-        0   /*END OF TABLE*/
-    } 
-
-    #if 0
-    { SC_SEND_HK_MID,       4, 0 },
-    { SC_1HZ_WAKEUP_MID,    1, 0 },  /* Example of a 1hz packet */
-    { HS_SEND_HK_MID,       4, 0 },
-    { FM_SEND_HK_MID,       4, 0 },
-    { DS_SEND_HK_MID,       4, 0 },
-    { LC_SEND_HK_MID,       4, 0 },
-
-    #endif
-
+        .Config =
+        {
+                { CFE_ES_SEND_HK_MID, 4 },
+                { CFE_EVS_SEND_HK_MID, 4 },
+                { CFE_TIME_SEND_HK_MID, 4 },
+                { CFE_SB_SEND_HK_MID, 4 },
+                { CFE_TBL_SEND_HK_MID, 4 },
+                { CI_LAB_SEND_HK_MID, 4 },
+                { TO_LAB_SEND_HK_MID, 4 },
+                { SAMPLE_APP_SEND_HK_MID, 4 },
+#if 0
+                { SC_SEND_HK_MID,       4, 0 },
+                { SC_1HZ_WAKEUP_MID,    1, 0 },  /* Example of a 1hz packet */
+                { HS_SEND_HK_MID,       4, 0 },
+                { FM_SEND_HK_MID,       4, 0 },
+                { DS_SEND_HK_MID,       4, 0 },
+                { LC_SEND_HK_MID,       4, 0 },
+#endif
+        }
 };
 
 /*

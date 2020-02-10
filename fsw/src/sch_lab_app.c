@@ -57,9 +57,15 @@ typedef union
 
 typedef struct
 {
-    SCH_LAB_MessageBuffer_t  MsgBuf[SCH_LAB_MAX_SCHEDULE_ENTRIES];
+    SCH_LAB_MessageBuffer_t MsgBuf;
+    uint32                  PacketRate;
+    uint32                  Counter;
+} SCH_LAB_StateEntry_t;
+
+typedef struct
+{
+    SCH_LAB_StateEntry_t     State[SCH_LAB_MAX_SCHEDULE_ENTRIES];
     CFE_TBL_Handle_t         TblHandle;
-    SCH_LAB_ScheduleTable_t  *MySchTBL;
 
     CFE_SB_Msg_t             *CmdPipePktPtr;
     CFE_SB_PipeId_t          CmdPipe;
@@ -73,6 +79,11 @@ SCH_LAB_GlobalData_t    SCH_LAB_Global;
 
 
 /*
+** Local Function Prototypes
+*/
+int32 SCH_LAB_AppInit(void);
+
+/*
 ** AppMain
 */
 void SCH_Lab_AppMain(void)
@@ -81,6 +92,7 @@ void SCH_Lab_AppMain(void)
     uint32           SCH_OneHzPktsRcvd = 0;
     uint32           Status = CFE_SUCCESS;
     uint32           RunStatus = CFE_ES_RunStatus_APP_RUN;
+    SCH_LAB_StateEntry_t *LocalStateEntry;
 
     CFE_ES_PerfLogEntry(SCH_MAIN_TASK_PERF_ID);
 
@@ -94,18 +106,6 @@ void SCH_Lab_AppMain(void)
 
     } 
    
-    /*
-    ** Manage Table 
-    */
-    Status = CFE_TBL_Manage(SCH_LAB_Global.TblHandle);
-    if ( Status != CFE_SUCCESS )
-    {
-        CFE_ES_WriteToSysLog("SCH_LAB: Error managing table  RC = 0x%08lX\n",
-                (unsigned long)Status);
-        CFE_TBL_ReleaseAddress(SCH_LAB_Global.TblHandle);
-
-    }  
-
     /* Loop Forever */
     while (CFE_ES_RunLoop(&RunStatus) == true)
     {
@@ -122,50 +122,40 @@ void SCH_Lab_AppMain(void)
             /*
             ** Process table every second, sending packets that are ready 
             */
+            LocalStateEntry = SCH_LAB_Global.State;
             for (i = 0; i < SCH_LAB_MAX_SCHEDULE_ENTRIES; i++) 
             {
-                if ( SCH_LAB_Global.MySchTBL->MessageID[i] != SCH_LAB_END_OF_TABLE )
-                { 
-                      SCH_LAB_Global.MySchTBL->Counter[i]++;
-                      if (SCH_LAB_Global.MySchTBL->Counter[i] >= SCH_LAB_Global.MySchTBL->PacketRate[i] )
-                      {
-                          SCH_LAB_Global.MySchTBL->Counter[i] = 0;
-                          CFE_SB_SendMsg(&SCH_LAB_Global.MsgBuf[i].MsgHdr);
-                      }
-                } 
-                else
+                if (LocalStateEntry->PacketRate != 0)
                 {
-                   break;
+                    ++LocalStateEntry->Counter;
+                    if ( LocalStateEntry->Counter >= LocalStateEntry->PacketRate )
+                    {
+                        LocalStateEntry->Counter = 0;
+                        CFE_SB_SendMsg(&LocalStateEntry->MsgBuf.MsgHdr);
+                    }
                 }
+                ++LocalStateEntry;
             }
         }
 
     }/* end while */
     
-    /*
-    ** Release the table
-    */
-    Status = CFE_TBL_ReleaseAddress(SCH_LAB_Global.TblHandle);
-    if ( Status != CFE_SUCCESS )
-    {
-        CFE_ES_WriteToSysLog("SCH_LAB: Error Releasing Table SCH_LAB_SchTbl, RC = 0x%08lX\n",
-                              (unsigned long)Status);
-
-    }
-
     CFE_ES_ExitApp( Status );
     
 }/* end SCH_Lab_AppMain */
 
 /* * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * */ 
 /*                                                                 */ 
-/* SCH_LAB_AppInit() -- initialization                                     */ 
+/* SCH_LAB_AppInit() -- initialization                             */
 /*                                                                 */ 
 /* * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * */
 int32 SCH_LAB_AppInit(void)
 { 
     int              i;
     int32            Status;
+    SCH_LAB_ScheduleTable_t *ConfigTable;
+    SCH_LAB_ScheduleTableEntry_t *ConfigEntry;
+    SCH_LAB_StateEntry_t *LocalStateEntry;
 
     memset(&SCH_LAB_Global, 0, sizeof(SCH_LAB_Global));
 
@@ -176,7 +166,8 @@ int32 SCH_LAB_AppInit(void)
                               "SCH_LAB_SchTbl",
                               sizeof(SCH_LAB_ScheduleTable_t), 
                               CFE_TBL_OPT_DEFAULT, 
-                              &SCH_LAB_TblValidation);
+                              NULL);
+
     if ( Status != CFE_SUCCESS )
     {
         CFE_ES_WriteToSysLog("SCH_LAB: Error Registering SCH_LAB_SchTbl, RC = 0x%08lX\n",
@@ -203,7 +194,7 @@ int32 SCH_LAB_AppInit(void)
     /*
     ** Get Table Address
     */ 
-    Status = CFE_TBL_GetAddress((void **)&SCH_LAB_Global.MySchTBL, SCH_LAB_Global.TblHandle);
+    Status = CFE_TBL_GetAddress((void **)&ConfigTable, SCH_LAB_Global.TblHandle);
     if ( Status != CFE_SUCCESS &&
          Status != CFE_TBL_INFO_UPDATED )
     {
@@ -216,18 +207,30 @@ int32 SCH_LAB_AppInit(void)
     /*
     ** Initialize the command headers
     */
+    ConfigEntry = ConfigTable->Config;
+    LocalStateEntry = SCH_LAB_Global.State;
     for (i = 0; i < SCH_LAB_MAX_SCHEDULE_ENTRIES; i++) 
     {
-         if ( SCH_LAB_Global.MySchTBL->MessageID[i] != SCH_LAB_END_OF_TABLE )
-         {   
-              CFE_SB_InitMsg(&SCH_LAB_Global.MsgBuf[i].MsgHdr,
-                              SCH_LAB_Global.MySchTBL->MessageID[i],
-                              sizeof(CFE_SB_CmdHdr_t), true);
-         } 
-         else
-         {
-              break;
-         }
+        if (ConfigEntry->PacketRate != 0)
+        {
+            CFE_SB_InitMsg(&LocalStateEntry->MsgBuf.MsgHdr,
+                    CFE_SB_ValueToMsgId(ConfigEntry->MessageID),
+                    sizeof(LocalStateEntry->MsgBuf), true);
+            LocalStateEntry->PacketRate = ConfigEntry->PacketRate;
+        }
+        ++ConfigEntry;
+        ++LocalStateEntry;
+    }
+
+    /*
+    ** Release the table
+    */
+    Status = CFE_TBL_ReleaseAddress(SCH_LAB_Global.TblHandle);
+    if ( Status != CFE_SUCCESS )
+    {
+        CFE_ES_WriteToSysLog("SCH_LAB: Error Releasing Table SCH_LAB_SchTbl, RC = 0x%08lX\n",
+                              (unsigned long)Status);
+
     }
 
     /* Create pipe and subscribe to the 1Hz pkt */
@@ -252,17 +255,4 @@ int32 SCH_LAB_AppInit(void)
     return( CFE_SUCCESS );    
 
 }/*End of AppInit*/
-
-/* * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * */ 
-/*                                                                 */ 
-/* SCH_LAB_TblValidation() - Validate Table                             */ 
-/*                                                                 */ 
-/* * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * */
-int32 SCH_LAB_TblValidation(void *MySchTBL)
-{
-
-    /*Write Validation Code Here*/
-
-    return( CFE_SUCCESS );
-}/*End of SchTblValidation*/
 
