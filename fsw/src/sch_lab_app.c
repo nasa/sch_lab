@@ -62,7 +62,7 @@ void SCH_Lab_AppMain(void)
     int              i;
     uint32           SCH_OneHzPktsRcvd = 0;
     uint32           Status = CFE_SUCCESS;
-    uint32           RunStatus = CFE_ES_APP_RUN;
+    uint32           RunStatus = CFE_ES_RunStatus_APP_RUN;
 
     CFE_ES_PerfLogEntry(SCH_MAIN_TASK_PERF_ID);
 
@@ -89,7 +89,7 @@ void SCH_Lab_AppMain(void)
     }  
 
     /* Loop Forever */
-    while (CFE_ES_RunLoop(&RunStatus) == TRUE)
+    while (CFE_ES_RunLoop(&RunStatus) == true)
     {
         CFE_ES_PerfLogExit(SCH_MAIN_TASK_PERF_ID);
 
@@ -202,7 +202,7 @@ int32 SCH_LAB_AppInit(void)
          {   
               CFE_SB_InitMsg(&SCH_CmdHeaderTable[i],
                               MySchTBL->MessageID[i],
-                              sizeof(CFE_SB_CmdHdr_t), TRUE);
+                              sizeof(CFE_SB_CmdHdr_t), true);
          } 
          else
          {
