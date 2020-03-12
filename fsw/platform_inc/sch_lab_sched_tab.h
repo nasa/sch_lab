@@ -61,15 +61,13 @@
 */
 typedef struct
 {
-    CFE_SB_MsgId_t  MessageID[SCH_LAB_MAX_SCHEDULE_ENTRIES];  /* Message ID for the table entry */
-    uint32          PacketRate[SCH_LAB_MAX_SCHEDULE_ENTRIES]; /* Rate: Send packet every N seconds */
-    uint32          Counter[SCH_LAB_MAX_SCHEDULE_ENTRIES];    /* Counter used to send packet */
-     
+    CFE_SB_MsgId_t  MessageID;  /* Message ID for the table entry */
+    uint32          PacketRate; /* Rate: Send packet every N seconds */
+} SCH_LAB_ScheduleTableEntry_t;
+
+
+typedef struct
+{
+    SCH_LAB_ScheduleTableEntry_t Config[SCH_LAB_MAX_SCHEDULE_ENTRIES];
 } SCH_LAB_ScheduleTable_t;
 
-/*
-** Local Function Prototypes
-*/
-
-int32 SCH_LAB_TblValidation(void *MySchTBL);
-int32 SCH_LAB_AppInit(void);
