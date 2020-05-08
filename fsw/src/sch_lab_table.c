@@ -22,7 +22,7 @@
 
 #include "cfe_tbl_filedef.h"  /* Required to obtain the CFE_TBL_FILEDEF macro definition */
 #include "sch_lab_sched_tab.h" 
-
+#include "cfe_sb.h"           /* Required to use the CFE_SB_MSGID_WRAP_VALUE macro */
 
 /*
 ** SCH Lab schedule table
@@ -37,14 +37,14 @@ SCH_LAB_ScheduleTable_t  SCH_TBL_Structure =
 {
         .Config =
         {
-                { CFE_ES_SEND_HK_MID, 4 },
-                { CFE_EVS_SEND_HK_MID, 4 },
-                { CFE_TIME_SEND_HK_MID, 4 },
-                { CFE_SB_SEND_HK_MID, 4 },
-                { CFE_TBL_SEND_HK_MID, 4 },
-                { CI_LAB_SEND_HK_MID, 4 },
-                { TO_LAB_SEND_HK_MID, 4 },
-                { SAMPLE_APP_SEND_HK_MID, 4 },
+                { CFE_SB_MSGID_WRAP_VALUE(CFE_ES_SEND_HK_MID), 4 },
+                { CFE_SB_MSGID_WRAP_VALUE(CFE_EVS_SEND_HK_MID), 4 },
+                { CFE_SB_MSGID_WRAP_VALUE(CFE_TIME_SEND_HK_MID), 4 },
+                { CFE_SB_MSGID_WRAP_VALUE(CFE_SB_SEND_HK_MID), 4 },
+                { CFE_SB_MSGID_WRAP_VALUE(CFE_TBL_SEND_HK_MID), 4 },
+                { CFE_SB_MSGID_WRAP_VALUE(CI_LAB_SEND_HK_MID), 4 },
+                { CFE_SB_MSGID_WRAP_VALUE(TO_LAB_SEND_HK_MID), 4 },
+                { CFE_SB_MSGID_WRAP_VALUE(SAMPLE_APP_SEND_HK_MID), 4 },
 #if 0
                 { SC_SEND_HK_MID,       4, 0 },
                 { SC_1HZ_WAKEUP_MID,    1, 0 },  /* Example of a 1hz packet */
