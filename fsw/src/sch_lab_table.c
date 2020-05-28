@@ -20,31 +20,28 @@
 **
 */
 
-#include "cfe_tbl_filedef.h"  /* Required to obtain the CFE_TBL_FILEDEF macro definition */
-#include "sch_lab_sched_tab.h" 
-#include "cfe_sb.h"           /* Required to use the CFE_SB_MSGID_WRAP_VALUE macro */
+#include "cfe_tbl_filedef.h" /* Required to obtain the CFE_TBL_FILEDEF macro definition */
+#include "sch_lab_sched_tab.h"
+#include "cfe_sb.h" /* Required to use the CFE_SB_MSGID_WRAP_VALUE macro */
 
 /*
 ** SCH Lab schedule table
 ** When populating this table:
 **  1. Make sure the table is terminated by the SCH_LAB_END_OF_TABLE entry
-**  2. You can have commented out entries, but a zero MID will terminate the table processing, 
+**  2. You can have commented out entries, but a zero MID will terminate the table processing,
 **      skipping the remaining entries.
 **  3. If the table grows too big, increase SCH_LAB_MAX_SCHEDULE_ENTRIES
 */
 
-SCH_LAB_ScheduleTable_t  SCH_TBL_Structure = 
-{
-        .Config =
-        {
-                { CFE_SB_MSGID_WRAP_VALUE(CFE_ES_SEND_HK_MID), 4 },
-                { CFE_SB_MSGID_WRAP_VALUE(CFE_EVS_SEND_HK_MID), 4 },
-                { CFE_SB_MSGID_WRAP_VALUE(CFE_TIME_SEND_HK_MID), 4 },
-                { CFE_SB_MSGID_WRAP_VALUE(CFE_SB_SEND_HK_MID), 4 },
-                { CFE_SB_MSGID_WRAP_VALUE(CFE_TBL_SEND_HK_MID), 4 },
-                { CFE_SB_MSGID_WRAP_VALUE(CI_LAB_SEND_HK_MID), 4 },
-                { CFE_SB_MSGID_WRAP_VALUE(TO_LAB_SEND_HK_MID), 4 },
-                { CFE_SB_MSGID_WRAP_VALUE(SAMPLE_APP_SEND_HK_MID), 4 },
+SCH_LAB_ScheduleTable_t SCH_TBL_Structure = {.Config = {
+                                                 {CFE_SB_MSGID_WRAP_VALUE(CFE_ES_SEND_HK_MID), 4},
+                                                 {CFE_SB_MSGID_WRAP_VALUE(CFE_EVS_SEND_HK_MID), 4},
+                                                 {CFE_SB_MSGID_WRAP_VALUE(CFE_TIME_SEND_HK_MID), 4},
+                                                 {CFE_SB_MSGID_WRAP_VALUE(CFE_SB_SEND_HK_MID), 4},
+                                                 {CFE_SB_MSGID_WRAP_VALUE(CFE_TBL_SEND_HK_MID), 4},
+                                                 {CFE_SB_MSGID_WRAP_VALUE(CI_LAB_SEND_HK_MID), 4},
+                                                 {CFE_SB_MSGID_WRAP_VALUE(TO_LAB_SEND_HK_MID), 4},
+                                                 {CFE_SB_MSGID_WRAP_VALUE(SAMPLE_APP_SEND_HK_MID), 4},
 #if 0
                 { SC_SEND_HK_MID,       4, 0 },
                 { SC_1HZ_WAKEUP_MID,    1, 0 },  /* Example of a 1hz packet */
@@ -53,8 +50,7 @@ SCH_LAB_ScheduleTable_t  SCH_TBL_Structure =
                 { DS_SEND_HK_MID,       4, 0 },
                 { LC_SEND_HK_MID,       4, 0 },
 #endif
-        }
-};
+                                             }};
 
 /*
 ** The macro below identifies:
@@ -63,4 +59,4 @@ SCH_LAB_ScheduleTable_t  SCH_TBL_Structure =
 **    3) a brief description of the contents of the file image
 **    4) the desired name of the table image binary file that is cFE compatible
 */
-CFE_TBL_FILEDEF(SCH_TBL_Structure, SCH_LAB_APP.SCH_LAB_SchTbl, Schedule Lab MsgID Table, sch_lab_table.tbl )
+CFE_TBL_FILEDEF(SCH_TBL_Structure, SCH_LAB_APP.SCH_LAB_SchTbl, Schedule Lab MsgID Table, sch_lab_table.tbl)
