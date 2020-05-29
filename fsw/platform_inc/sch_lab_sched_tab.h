@@ -20,7 +20,7 @@
 **
 ** File: sch_lab_sched_tab.h
 **
-** Purpose: 
+** Purpose:
 **  This file contains the schedule tables for the SCH Lab app.
 **  It is intended to go in the platform include directory so the SCH_LAB
 **  app source code does not have to be modified.
@@ -29,8 +29,7 @@
 **
 *************************************************************************/
 
-
-#include "cfe_sb_extern_typedefs.h"  /* for CFE_SB_MsgId_t */
+#include "cfe_sb_extern_typedefs.h" /* for CFE_SB_MsgId_t */
 #include "cfe_msgids.h"
 
 /*
@@ -52,22 +51,20 @@
 /*
 ** Defines
 */
-#define SCH_LAB_END_OF_TABLE          0
-#define SCH_LAB_MAX_SCHEDULE_ENTRIES  32
-#define SCH_TBL_DEFAULT_FILE          "/cf/sch_lab_table.tbl"
+#define SCH_LAB_END_OF_TABLE         0
+#define SCH_LAB_MAX_SCHEDULE_ENTRIES 32
+#define SCH_TBL_DEFAULT_FILE         "/cf/sch_lab_table.tbl"
 
 /*
 ** Typedefs
 */
 typedef struct
 {
-    CFE_SB_MsgId_t  MessageID;  /* Message ID for the table entry */
-    uint32          PacketRate; /* Rate: Send packet every N seconds */
+    CFE_SB_MsgId_t MessageID;  /* Message ID for the table entry */
+    uint32         PacketRate; /* Rate: Send packet every N seconds */
 } SCH_LAB_ScheduleTableEntry_t;
-
 
 typedef struct
 {
     SCH_LAB_ScheduleTableEntry_t Config[SCH_LAB_MAX_SCHEDULE_ENTRIES];
 } SCH_LAB_ScheduleTable_t;
-
