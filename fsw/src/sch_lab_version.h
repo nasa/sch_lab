@@ -31,7 +31,7 @@
 
 #define SCH_LAB_MAJOR_VERSION 2
 #define SCH_LAB_MINOR_VERSION 3
-#define SCH_LAB_REVISION      6
+#define SCH_LAB_REVISION      7
 #define SCH_LAB_MISSION_REV   0
 
 #endif /* _sch_lab_version_h_ */
