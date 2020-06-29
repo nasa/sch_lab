@@ -43,7 +43,7 @@ To change the list of packets that sch_lab sends out, edit the schedule table lo
 
 - Minor updates (see <https://github.com/nasa/sch_lab/pull/16>)
 
-### _**OFFICIAL RELEASE: 2.3.0**_
+### _**OFFICIAL RELEASE: 2.3.0 - Aquila**_
 
 - Minor updates (see <https://github.com/nasa/sch_lab/pull/13>)
 - Not backwards compatible with OSAL 4.2.1
