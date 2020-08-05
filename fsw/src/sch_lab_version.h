@@ -30,7 +30,7 @@
  */
 
 /* Development Build Macro Definitions */
-#define SCH_LAB_BUILD_NUMBER 34 /*!< Development Build: Number of commits since baseline */
+#define SCH_LAB_BUILD_NUMBER 37 /*!< Development Build: Number of commits since baseline */
 #define SCH_LAB_BUILD_BASELINE "v2.3.0" /*!< Development Build: git tag that is the base for the current development */
 
 /* Version Macro Definitions */
@@ -54,7 +54,7 @@
  * See @ref cfsversions for format differences between development and release versions. 
 */          
 #define SCH_LAB_VERSION_STRING                                                          \
-    " SCH Lab Development Build "                                                     \
+    " SCH Lab DEVELOPMENT BUILD "                                                     \
     SCH_LAB_VERSION                                                                     \
     ", Last Official Release: v2.3.0"   /* For full support please use this version */
 
