@@ -234,8 +234,7 @@ int32 SCH_LAB_AppInit(void)
         OS_printf("SCH Error subscribing to 1hz!\n");
     }
 
-    OS_printf("SCH Lab Initialized.  Version %d.%d.%d.%d\n", SCH_LAB_MAJOR_VERSION, SCH_LAB_MINOR_VERSION,
-              SCH_LAB_REVISION, SCH_LAB_MISSION_REV);
+    OS_printf("SCH Lab Initialized.%s\n", SCH_LAB_VERSION_STRING);
 
     return (CFE_SUCCESS);
 
