@@ -18,7 +18,7 @@
 **      See the License for the specific language governing permissions and
 **      limitations under the License.
 **
-** File: sch_lab_sched_tab.h
+** File: sch_lab_table.h
 **
 ** Purpose:
 **  This file contains the schedule tables for the SCH Lab app.
@@ -31,22 +31,6 @@
 
 #include "cfe_sb_extern_typedefs.h" /* for CFE_SB_MsgId_t */
 #include "cfe_msgids.h"
-
-/*
-** Include headers for message IDs here
-*/
-#include "ci_lab_msgids.h"
-#include "to_lab_msgids.h"
-
-#include "sample_app_msgids.h"
-
-#if 0
-#include "sc_msgids.h"
-#include "hs_msgids.h"
-#include "fm_msgids.h"
-#include "ds_msgids.h"
-#include "lc_msgids.h"
-#endif
 
 /*
 ** Defines

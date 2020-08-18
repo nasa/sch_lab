@@ -44,7 +44,7 @@
 /*
 ** SCH Lab Schedule table from the platform inc directory
 */
-#include "sch_lab_sched_tab.h"
+#include "sch_lab_table.h"
 
 /*
 ** Global Structure
