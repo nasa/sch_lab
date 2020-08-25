@@ -21,8 +21,24 @@
 */
 
 #include "cfe_tbl_filedef.h" /* Required to obtain the CFE_TBL_FILEDEF macro definition */
-#include "sch_lab_sched_tab.h"
+#include "sch_lab_table.h"
 #include "cfe_sb.h" /* Required to use the CFE_SB_MSGID_WRAP_VALUE macro */
+
+/*
+** Include headers for message IDs here
+*/
+#include "ci_lab_msgids.h"
+#include "to_lab_msgids.h"
+
+#include "sample_app_msgids.h"
+
+#if 0
+#include "sc_msgids.h"
+#include "hs_msgids.h"
+#include "fm_msgids.h"
+#include "ds_msgids.h"
+#include "lc_msgids.h"
+#endif
 
 /*
 ** SCH Lab schedule table

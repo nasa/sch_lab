@@ -23,15 +23,15 @@
 #define SCH_LAB_VERSION_H
 
 /*! @file SCH_LAB_version.h
- * @brief Purpose: 
- * 
+ * @brief Purpose:
+ *
  *  The SCH Lab Application header file containing version information
- * 
+ *
  */
 
 /* Development Build Macro Definitions */
-#define SCH_LAB_BUILD_NUMBER 37 /*!< Development Build: Number of commits since baseline */
-#define SCH_LAB_BUILD_BASELINE "v2.3.0" /*!< Development Build: git tag that is the base for the current development */
+#define SCH_LAB_BUILD_NUMBER 2 /*!< Development Build: Number of commits since baseline */
+#define SCH_LAB_BUILD_BASELINE "v2.4.0-rc1" /*!< Development Build: git tag that is the base for the current development */
 
 /* Version Macro Definitions */
 
@@ -43,20 +43,19 @@
 #define SCH_LAB_STR_HELPER(x) #x /*!< @brief Helper function to concatenate strings from integer macros */
 #define SCH_LAB_STR(x)        SCH_LAB_STR_HELPER(x) /*!< @brief Helper function to concatenate strings from integer macros */
 
-/*! @brief Development Build Version Number. 
+/*! @brief Development Build Version Number.
  * @details Baseline git tag + Number of commits since baseline. @n
  * See @ref cfsversions for format differences between development and release versions.
  */
-#define SCH_LAB_VERSION SCH_LAB_BUILD_BASELINE "+dev" SCH_LAB_STR(SCH_LAB_BUILD_NUMBER) 
+#define SCH_LAB_VERSION SCH_LAB_BUILD_BASELINE "+dev" SCH_LAB_STR(SCH_LAB_BUILD_NUMBER)
 
 /*! @brief Development Build Version String.
- * @details Reports the current development build's baseline, number, and name. Also includes a note about the latest official version. @n
- * See @ref cfsversions for format differences between development and release versions. 
-*/          
-#define SCH_LAB_VERSION_STRING                                                          \
-    " SCH Lab DEVELOPMENT BUILD "                                                     \
-    SCH_LAB_VERSION                                                                     \
-    ", Last Official Release: v2.3.0"   /* For full support please use this version */
+ * @details Reports the current development build's baseline, number, and name. Also includes a note about the latest
+ * official version. @n See @ref cfsversions for format differences between development and release versions.
+ */
+#define SCH_LAB_VERSION_STRING                    \
+    " SCH Lab DEVELOPMENT BUILD " SCH_LAB_VERSION \
+    ", Last Official Release: v2.3.0" /* For full support please use this version */
 
 #endif /* SCH_LAB_VERSION_H */
 
