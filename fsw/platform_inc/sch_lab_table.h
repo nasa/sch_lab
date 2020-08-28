@@ -28,6 +28,8 @@
 ** Notes:
 **
 *************************************************************************/
+#ifndef sch_lab_sched_tab_h_
+#define sch_lab_sched_tab_h_
 
 #include "cfe_sb_extern_typedefs.h" /* for CFE_SB_MsgId_t */
 #include "cfe_msgids.h"
@@ -52,3 +54,5 @@ typedef struct
 {
     SCH_LAB_ScheduleTableEntry_t Config[SCH_LAB_MAX_SCHEDULE_ENTRIES];
 } SCH_LAB_ScheduleTable_t;
+
+#endif /* sch_lab_sched_tab_h_ */
