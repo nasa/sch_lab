@@ -10,6 +10,11 @@ To change the list of packets that sch_lab sends out, edit the schedule table lo
 
 ## Version History
 
+### Development Build: 2.4.0-rc1+dev6
+
+- Adds header guard (the other warning on the ticket was already resolved)
+- See <https://github.com/nasa/sch_lab/pull/53>
+
 ### Development Build: 2.4.0-rc1+dev2
 
 - Reorganize the sch_lab table so it matches the sample_app usage and format.
