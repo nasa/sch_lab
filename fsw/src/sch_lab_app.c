@@ -51,19 +51,16 @@
 */
 typedef struct
 {
-    CFE_SB_CmdHdr_t CmdBuf;
-    uint32          PacketRate;
-    uint32          Counter;
+    CFE_MSG_CommandHeader_t CmdHeader;
+    uint32                  PacketRate;
+    uint32                  Counter;
 } SCH_LAB_StateEntry_t;
 
 typedef struct
 {
     SCH_LAB_StateEntry_t State[SCH_LAB_MAX_SCHEDULE_ENTRIES];
     CFE_TBL_Handle_t     TblHandle;
-
-    CFE_MSG_Message_t *CmdPipePktPtr;
-    CFE_SB_PipeId_t    CmdPipe;
-
+    CFE_SB_PipeId_t      CmdPipe;
 } SCH_LAB_GlobalData_t;
 
 /*
@@ -86,6 +83,7 @@ void SCH_Lab_AppMain(void)
     uint32                Status            = CFE_SUCCESS;
     uint32                RunStatus         = CFE_ES_RunStatus_APP_RUN;
     SCH_LAB_StateEntry_t *LocalStateEntry;
+    CFE_SB_Buffer_t *     SBBufPtr;
 
     CFE_ES_PerfLogEntry(SCH_MAIN_TASK_PERF_ID);
 
@@ -103,7 +101,7 @@ void SCH_Lab_AppMain(void)
         CFE_ES_PerfLogExit(SCH_MAIN_TASK_PERF_ID);
 
         /* Pend on receipt of 1Hz packet */
-        Status = CFE_SB_RcvMsg(&SCH_LAB_Global.CmdPipePktPtr, SCH_LAB_Global.CmdPipe, CFE_SB_PEND_FOREVER);
+        Status = CFE_SB_ReceiveBuffer(&SBBufPtr, SCH_LAB_Global.CmdPipe, CFE_SB_PEND_FOREVER);
 
         CFE_ES_PerfLogEntry(SCH_MAIN_TASK_PERF_ID);
 
@@ -122,7 +120,7 @@ void SCH_Lab_AppMain(void)
                     if (LocalStateEntry->Counter >= LocalStateEntry->PacketRate)
                     {
                         LocalStateEntry->Counter = 0;
-                        CFE_SB_SendMsg(&LocalStateEntry->CmdBuf.BaseMsg);
+                        CFE_SB_TransmitMsg(&LocalStateEntry->CmdHeader.Msg, false);
                     }
                 }
                 ++LocalStateEntry;
@@ -198,7 +196,7 @@ int32 SCH_LAB_AppInit(void)
     {
         if (ConfigEntry->PacketRate != 0)
         {
-            CFE_MSG_Init(&LocalStateEntry->CmdBuf.BaseMsg, ConfigEntry->MessageID, sizeof(LocalStateEntry->CmdBuf));
+            CFE_MSG_Init(&LocalStateEntry->CmdHeader.Msg, ConfigEntry->MessageID, sizeof(LocalStateEntry->CmdHeader));
             LocalStateEntry->PacketRate = ConfigEntry->PacketRate;
         }
         ++ConfigEntry;
