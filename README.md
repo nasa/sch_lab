@@ -10,6 +10,11 @@ To change the list of packets that sch_lab sends out, edit the schedule table lo
 
 ## Version History
 
+### Development Build: 2.4.0-rc1+dev9
+
+- Update to use MSG module. Replaces deprecated SB APIs with MSG
+- See <https://github.com/nasa/sch_lab/pull/58>
+
 ### Development Build: 2.4.0-rc1+dev6
 
 - Adds header guard (the other warning on the ticket was already resolved)
