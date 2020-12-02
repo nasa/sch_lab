@@ -49,17 +49,11 @@
 /*
 ** Global Structure
 */
-typedef union
-{
-    CFE_SB_Msg_t    MsgHdr;
-    CFE_SB_CmdHdr_t CommandHeader;
-} SCH_LAB_MessageBuffer_t;
-
 typedef struct
 {
-    SCH_LAB_MessageBuffer_t MsgBuf;
-    uint32                  PacketRate;
-    uint32                  Counter;
+    CFE_SB_CmdHdr_t CmdBuf;
+    uint32          PacketRate;
+    uint32          Counter;
 } SCH_LAB_StateEntry_t;
 
 typedef struct
@@ -67,8 +61,8 @@ typedef struct
     SCH_LAB_StateEntry_t State[SCH_LAB_MAX_SCHEDULE_ENTRIES];
     CFE_TBL_Handle_t     TblHandle;
 
-    CFE_SB_Msg_t *  CmdPipePktPtr;
-    CFE_SB_PipeId_t CmdPipe;
+    CFE_MSG_Message_t *CmdPipePktPtr;
+    CFE_SB_PipeId_t    CmdPipe;
 
 } SCH_LAB_GlobalData_t;
 
@@ -128,7 +122,7 @@ void SCH_Lab_AppMain(void)
                     if (LocalStateEntry->Counter >= LocalStateEntry->PacketRate)
                     {
                         LocalStateEntry->Counter = 0;
-                        CFE_SB_SendMsg(&LocalStateEntry->MsgBuf.MsgHdr);
+                        CFE_SB_SendMsg(&LocalStateEntry->CmdBuf.BaseMsg);
                     }
                 }
                 ++LocalStateEntry;
@@ -204,8 +198,7 @@ int32 SCH_LAB_AppInit(void)
     {
         if (ConfigEntry->PacketRate != 0)
         {
-            CFE_SB_InitMsg(&LocalStateEntry->MsgBuf.MsgHdr, ConfigEntry->MessageID, sizeof(LocalStateEntry->MsgBuf),
-                           true);
+            CFE_MSG_Init(&LocalStateEntry->CmdBuf.BaseMsg, ConfigEntry->MessageID, sizeof(LocalStateEntry->CmdBuf));
             LocalStateEntry->PacketRate = ConfigEntry->PacketRate;
         }
         ++ConfigEntry;
