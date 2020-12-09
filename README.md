@@ -10,6 +10,12 @@ To change the list of packets that sch_lab sends out, edit the schedule table lo
 
 ## Version History
 
+
+### Development Build: 2.4.0-rc1+dev12
+
+- Aligns messages according to changes in cFE <https://github.com/nasa/cFE/issues/1009>. Uses the "raw" message cmd/tlm types in definition
+- See <https://github.com/nasa/sch_lab/pull/59>
+
 ### Development Build: 2.4.0-rc1+dev9
 
 - Update to use MSG module. Replaces deprecated SB APIs with MSG
