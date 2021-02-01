@@ -1,3 +1,6 @@
+![Static Analysis](https://github.com/nasa/sch_lab/workflows/Static%20Analysis/badge.svg)
+![Format Check](https://github.com/nasa/sch_lab/workflows/Format%20Check/badge.svg)
+
 # Core Flight System : Framework : App : Scheduler Lab
 
 This repository contains NASA's Scheduler Lab (sch_lab), which is a framework component of the Core Flight System.
