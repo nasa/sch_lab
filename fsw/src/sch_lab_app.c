@@ -120,7 +120,7 @@ void SCH_Lab_AppMain(void)
                     if (LocalStateEntry->Counter >= LocalStateEntry->PacketRate)
                     {
                         LocalStateEntry->Counter = 0;
-                        CFE_SB_TransmitMsg(&LocalStateEntry->CmdHeader.Msg, false);
+                        CFE_SB_TransmitMsg(&LocalStateEntry->CmdHeader.Msg, true);
                     }
                 }
                 ++LocalStateEntry;
