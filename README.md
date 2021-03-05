@@ -13,6 +13,11 @@ To change the list of packets that sch_lab sends out, edit the schedule table lo
 
 ## Version History
 
+### Development Build: v2.4.0-rc1+dev26
+
+- Fix #67, Update sequence count in transmitted messages
+- Fix #69, Add Testing Tools to the Security Policy
+- See <https://github.com/nasa/sch_lab/pull/71>
 
 ### Development Build: 2.4.0-rc1+dev12
 
