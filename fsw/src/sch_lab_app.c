@@ -87,8 +87,6 @@ void SCH_Lab_AppMain(void)
 
     CFE_ES_PerfLogEntry(SCH_MAIN_TASK_PERF_ID);
 
-    CFE_ES_RegisterApp();
-
     Status = SCH_LAB_AppInit();
     if (Status != CFE_SUCCESS)
     {
