@@ -13,6 +13,11 @@ To change the list of packets that sch_lab sends out, edit the schedule table lo
 
 ## Version History
 
+### Development Build: v2.4.0-rc1+dev32
+
+- Removes app registration call, `CFE_ES_RegisterApp()` since applications do not need to register themselves.
+- See <https://github.com/nasa/sch_lab/pull/76>
+
 ### Development Build: v2.4.0-rc1+dev26
 
 - Fix #67, Update sequence count in transmitted messages
