@@ -91,6 +91,7 @@ void SCH_Lab_AppMain(void)
     if (Status != CFE_SUCCESS)
     {
         CFE_ES_WriteToSysLog("SCH_LAB: Error Initializing RC = 0x%08lX\n", (unsigned long)Status);
+        RunStatus = CFE_ES_RunStatus_APP_ERROR;
     }
 
     /* Loop Forever */
