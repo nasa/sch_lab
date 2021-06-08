@@ -13,6 +13,11 @@ To change the list of packets that sch_lab sends out, edit the schedule table lo
 
 ## Version History
 
+### Development Build: v2.4.0-rc1+dev36
+
+- Fix infinite loop by making sch_lab exit by making "RunStatus" return ERROR if initialization fails. This causes the `CFE_ES_RunLoop` function to return false.
+- See <https://github.com/nasa/sch_lab/pull/82> and <https://github.com/nasa/cFS/pull/263/>
+
 ### Development Build: v2.4.0-rc1+dev32
 
 - Removes app registration call, `CFE_ES_RegisterApp()` since applications do not need to register themselves.
