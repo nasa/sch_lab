@@ -13,6 +13,11 @@ To change the list of packets that sch_lab sends out, edit the schedule table lo
 
 ## Version History
 
+### Development Build: v2.4.0-rc1+dev40
+
+-  Implement Coding Standard in CodeQL workflow
+- See <https://github.com/nasa/sch_lab/pull/83> and <https://github.com/nasa/cFS/pull/270>
+
 ### Development Build: v2.4.0-rc1+dev36
 
 - Fix infinite loop by making sch_lab exit by making "RunStatus" return ERROR if initialization fails. This causes the `CFE_ES_RunLoop` function to return false.
@@ -25,70 +30,70 @@ To change the list of packets that sch_lab sends out, edit the schedule table lo
 
 ### Development Build: v2.4.0-rc1+dev26
 
-- Fix #67, Update sequence count in transmitted messages
-- Fix #69, Add Testing Tools to the Security Policy
+- Update sequence count in transmitted messages
+- Add Testing Tools to the Security Policy
 - See <https://github.com/nasa/sch_lab/pull/71>
 
-### Development Build: 2.4.0-rc1+dev12
+### Development Build: v2.4.0-rc1+dev12
 
 - Aligns messages according to changes in cFE <https://github.com/nasa/cFE/issues/1009>. Uses the "raw" message cmd/tlm types in definition
 - See <https://github.com/nasa/sch_lab/pull/59>
 
-### Development Build: 2.4.0-rc1+dev9
+### Development Build: v2.4.0-rc1+dev9
 
 - Update to use MSG module. Replaces deprecated SB APIs with MSG
 - See <https://github.com/nasa/sch_lab/pull/58>
 
-### Development Build: 2.4.0-rc1+dev6
+### Development Build: v2.4.0-rc1+dev6
 
 - Adds header guard (the other warning on the ticket was already resolved)
 - See <https://github.com/nasa/sch_lab/pull/53>
 
-### Development Build: 2.4.0-rc1+dev2
+### Development Build: v2.4.0-rc1+dev2
 
 - Reorganize the sch_lab table so it matches the sample_app usage and format.
 - See <https://github.com/nasa/sch_lab/pull/52>
 
-### Development Build: 2.3.0+dev37
+### Development Build: v2.3.0+dev37
 
 - Fixes schedule table documentation
 - Add baseline and build number to version reporting
 - See <https://github.com/nasa/sch_lab/pull/48>
 
-### Development Build: 2.3.7
+### Development Build: v2.3.7
 
 - Apply the CFE_SB_MsgIdToValue() and CFE_SB_ValueToMsgId() routines where compatibility with an integer MsgId is necessary - syslog prints, events, compile-time MID #define values.
 - See <https://github.com/nasa/sch_lab/pull/41>
 
-### Development Build: 2.3.6
+### Development Build: v2.3.6
 
 - Apply the CFE_SB_MsgIdToValue() and CFE_SB_ValueToMsgId() routines where compatibility with an integer MsgId is necessary - syslog prints, events, compile-time MID #define values.
 - See <https://github.com/nasa/sch_lab/pull/39>
 
-### Development Build: 2.3.5
+### Development Build: v2.3.5
 
 - Improved table handling
 - sch_lab now builds on Raspbian OS
 - Minor updates (see <https://github.com/nasa/sch_lab/pull/36>)
 
-### Development Build: 2.3.4
+### Development Build: v2.3.4
 
 - Fix for clean build with OMIT_DEPRECATED
 - Minor updates (see <https://github.com/nasa/sch_lab/pull/35>)
 
-  ### Development Build: 2.3.3
+### Development Build: v2.3.3
 
 - Minor updates (see <https://github.com/nasa/sch_lab/pull/28>)
 
-  ### Development Build: 2.3.2
+### Development Build: v2.3.2
 
 - Table definition include update (see <https://github.com/nasa/sch_lab/pull/18>)
 
-  ### Development Build: 2.3.1
+### Development Build: v2.3.1
 
 - Minor updates (see <https://github.com/nasa/sch_lab/pull/16>)
 
-### _**OFFICIAL RELEASE: 2.3.0 - Aquila**_
+### _**OFFICIAL RELEASE: v2.3.0 - Aquila**_
 
 - Minor updates (see <https://github.com/nasa/sch_lab/pull/13>)
 - Not backwards compatible with OSAL 4.2.1
