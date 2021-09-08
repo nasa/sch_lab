@@ -46,8 +46,9 @@
 */
 typedef struct
 {
-    CFE_SB_MsgId_t MessageID;  /* Message ID for the table entry */
-    uint32         PacketRate; /* Rate: Send packet every N seconds */
+    CFE_SB_MsgId_t    MessageID;  /* Message ID for the table entry */
+    uint32            PacketRate; /* Rate: Send packet every N seconds */
+    CFE_MSG_FcnCode_t FcnCode;    /* Command/Function code to set */
 } SCH_LAB_ScheduleTableEntry_t;
 
 typedef struct
