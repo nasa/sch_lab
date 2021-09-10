@@ -50,21 +50,21 @@
 */
 
 SCH_LAB_ScheduleTable_t SCH_TBL_Structure = {.Config = {
-                                                 {CFE_SB_MSGID_WRAP_VALUE(CFE_ES_SEND_HK_MID), 4},
-                                                 {CFE_SB_MSGID_WRAP_VALUE(CFE_EVS_SEND_HK_MID), 4},
-                                                 {CFE_SB_MSGID_WRAP_VALUE(CFE_TIME_SEND_HK_MID), 4},
-                                                 {CFE_SB_MSGID_WRAP_VALUE(CFE_SB_SEND_HK_MID), 4},
-                                                 {CFE_SB_MSGID_WRAP_VALUE(CFE_TBL_SEND_HK_MID), 4},
-                                                 {CFE_SB_MSGID_WRAP_VALUE(CI_LAB_SEND_HK_MID), 4},
-                                                 {CFE_SB_MSGID_WRAP_VALUE(TO_LAB_SEND_HK_MID), 4},
-                                                 {CFE_SB_MSGID_WRAP_VALUE(SAMPLE_APP_SEND_HK_MID), 4},
+                                                 {CFE_SB_MSGID_WRAP_VALUE(CFE_ES_SEND_HK_MID), 4, 0},
+                                                 {CFE_SB_MSGID_WRAP_VALUE(CFE_EVS_SEND_HK_MID), 4, 0},
+                                                 {CFE_SB_MSGID_WRAP_VALUE(CFE_TIME_SEND_HK_MID), 4, 0},
+                                                 {CFE_SB_MSGID_WRAP_VALUE(CFE_SB_SEND_HK_MID), 4, 0},
+                                                 {CFE_SB_MSGID_WRAP_VALUE(CFE_TBL_SEND_HK_MID), 4, 0},
+                                                 {CFE_SB_MSGID_WRAP_VALUE(CI_LAB_SEND_HK_MID), 4, 0},
+                                                 {CFE_SB_MSGID_WRAP_VALUE(TO_LAB_SEND_HK_MID), 4, 0},
+                                                 {CFE_SB_MSGID_WRAP_VALUE(SAMPLE_APP_SEND_HK_MID), 4, 0},
 #if 0
-                {CFE_SB_MSGID_WRAP_VALUE(SC_SEND_HK_MID),       4},
-                {CFE_SB_MSGID_WRAP_VALUE(SC_1HZ_WAKEUP_MID),    1},  /* Example of a 1hz packet */
-                {CFE_SB_MSGID_WRAP_VALUE(HS_SEND_HK_MID),       0},  /* Example of a message that wouldn't be sent */
-                {CFE_SB_MSGID_WRAP_VALUE(FM_SEND_HK_MID),       4},
-                {CFE_SB_MSGID_WRAP_VALUE(DS_SEND_HK_MID),       4},
-                {CFE_SB_MSGID_WRAP_VALUE(LC_SEND_HK_MID),       4},
+                {CFE_SB_MSGID_WRAP_VALUE(SC_SEND_HK_MID),       4, 0},
+                {CFE_SB_MSGID_WRAP_VALUE(SC_1HZ_WAKEUP_MID),    1, 0},  /* Example of a 1hz packet */
+                {CFE_SB_MSGID_WRAP_VALUE(HS_SEND_HK_MID),       0, 0},  /* Example of a message that wouldn't be sent */
+                {CFE_SB_MSGID_WRAP_VALUE(FM_SEND_HK_MID),       4, 0},
+                {CFE_SB_MSGID_WRAP_VALUE(DS_SEND_HK_MID),       4, 0},
+                {CFE_SB_MSGID_WRAP_VALUE(LC_SEND_HK_MID),       4, 0},
 #endif
                                              }};
 

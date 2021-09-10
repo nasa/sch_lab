@@ -196,6 +196,7 @@ int32 SCH_LAB_AppInit(void)
         if (ConfigEntry->PacketRate != 0)
         {
             CFE_MSG_Init(&LocalStateEntry->CmdHeader.Msg, ConfigEntry->MessageID, sizeof(LocalStateEntry->CmdHeader));
+            CFE_MSG_SetFcnCode(&LocalStateEntry->CmdHeader.Msg, ConfigEntry->FcnCode);
             LocalStateEntry->PacketRate = ConfigEntry->PacketRate;
         }
         ++ConfigEntry;

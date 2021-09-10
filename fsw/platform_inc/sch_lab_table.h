@@ -32,6 +32,7 @@
 #define sch_lab_sched_tab_h_
 
 #include "cfe_sb_extern_typedefs.h" /* for CFE_SB_MsgId_t */
+#include "cfe_msg_api_typedefs.h"   /* For CFE_MSG_FcnCode_t */
 #include "cfe_msgids.h"
 
 /*
@@ -46,8 +47,9 @@
 */
 typedef struct
 {
-    CFE_SB_MsgId_t MessageID;  /* Message ID for the table entry */
-    uint32         PacketRate; /* Rate: Send packet every N seconds */
+    CFE_SB_MsgId_t    MessageID;  /* Message ID for the table entry */
+    uint32            PacketRate; /* Rate: Send packet every N seconds */
+    CFE_MSG_FcnCode_t FcnCode;    /* Command/Function code to set */
 } SCH_LAB_ScheduleTableEntry_t;
 
 typedef struct

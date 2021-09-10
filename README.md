@@ -13,6 +13,10 @@ To change the list of packets that sch_lab sends out, edit the schedule table lo
 
 ## Version History
 
+### Development Build: v2.4.0-rc1+dev47
+
+- Allow command codes to be specified in sch_lab_table #85, add CmdCode to sch_lab_table
+- See <https://github.com/nasa/sch_lab/pull/87> and <https://github.com/nasa/cFS/pull/351>
 ### Development Build: v2.4.0-rc1+dev40
 
 -  Implement Coding Standard in CodeQL workflow
