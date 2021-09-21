@@ -219,7 +219,7 @@ int32 SCH_LAB_AppInit(void)
         OS_printf("SCH Error creating pipe!\n");
     }
 
-    Status = CFE_SB_Subscribe(CFE_TIME_1HZ_CMD_MID, SCH_LAB_Global.CmdPipe);
+    Status = CFE_SB_Subscribe(CFE_SB_ValueToMsgId(CFE_TIME_1HZ_CMD_MID), SCH_LAB_Global.CmdPipe);
     if (Status != CFE_SUCCESS)
     {
         OS_printf("SCH Error subscribing to 1hz!\n");
