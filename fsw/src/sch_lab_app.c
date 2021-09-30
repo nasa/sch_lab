@@ -51,7 +51,7 @@
 */
 typedef struct
 {
-    CFE_MSG_CommandHeader_t CmdHeader;
+    CFE_MSG_CommandHeader_t CommandHeader;
     uint32                  PacketRate;
     uint32                  Counter;
 } SCH_LAB_StateEntry_t;
@@ -119,7 +119,7 @@ void SCH_Lab_AppMain(void)
                     if (LocalStateEntry->Counter >= LocalStateEntry->PacketRate)
                     {
                         LocalStateEntry->Counter = 0;
-                        CFE_SB_TransmitMsg(&LocalStateEntry->CmdHeader.Msg, true);
+                        CFE_SB_TransmitMsg(CFE_MSG_PTR(LocalStateEntry->CommandHeader), true);
                     }
                 }
                 ++LocalStateEntry;
@@ -195,8 +195,9 @@ int32 SCH_LAB_AppInit(void)
     {
         if (ConfigEntry->PacketRate != 0)
         {
-            CFE_MSG_Init(&LocalStateEntry->CmdHeader.Msg, ConfigEntry->MessageID, sizeof(LocalStateEntry->CmdHeader));
-            CFE_MSG_SetFcnCode(&LocalStateEntry->CmdHeader.Msg, ConfigEntry->FcnCode);
+            CFE_MSG_Init(CFE_MSG_PTR(LocalStateEntry->CommandHeader), ConfigEntry->MessageID,
+                         sizeof(LocalStateEntry->CommandHeader));
+            CFE_MSG_SetFcnCode(CFE_MSG_PTR(LocalStateEntry->CommandHeader), ConfigEntry->FcnCode);
             LocalStateEntry->PacketRate = ConfigEntry->PacketRate;
         }
         ++ConfigEntry;
