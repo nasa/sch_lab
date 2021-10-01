@@ -144,6 +144,7 @@ int32 SCH_LAB_AppInit(void)
     SCH_LAB_ScheduleTable_t *     ConfigTable;
     SCH_LAB_ScheduleTableEntry_t *ConfigEntry;
     SCH_LAB_StateEntry_t *        LocalStateEntry;
+    void *                        TableAddr;
 
     memset(&SCH_LAB_Global, 0, sizeof(SCH_LAB_Global));
 
@@ -177,7 +178,7 @@ int32 SCH_LAB_AppInit(void)
     /*
     ** Get Table Address
     */
-    Status = CFE_TBL_GetAddress((void **)&ConfigTable, SCH_LAB_Global.TblHandle);
+    Status = CFE_TBL_GetAddress(&TableAddr, SCH_LAB_Global.TblHandle);
     if (Status != CFE_SUCCESS && Status != CFE_TBL_INFO_UPDATED)
     {
         CFE_ES_WriteToSysLog("SCH_LAB: Error Getting Table's Address SCH_LAB_SchTbl, RC = 0x%08lX\n",
@@ -189,6 +190,7 @@ int32 SCH_LAB_AppInit(void)
     /*
     ** Initialize the command headers
     */
+    ConfigTable     = TableAddr;
     ConfigEntry     = ConfigTable->Config;
     LocalStateEntry = SCH_LAB_Global.State;
     for (i = 0; i < SCH_LAB_MAX_SCHEDULE_ENTRIES; i++)
