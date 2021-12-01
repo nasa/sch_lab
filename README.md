@@ -13,6 +13,13 @@ To change the list of packets that sch_lab sends out, edit the schedule table lo
 
 ## Version History
 
+### Development Build: v2.5.0-rc4+dev6
+
+- Use separate address variable
+- Use CFE_MSG_PTR conversion macro
+- Update baseline for cFS-Caelum-rc4: v2.5.0-rc4
+- See <https://github.com/nasa/sch_lab/pull/102> and <https://github.com/nasa/cFS/pull/390>
+
 ### Development Build: v2.4.0-rc1+dev53
 
 - Apply CFE_SB_ValueToMsgId where required
