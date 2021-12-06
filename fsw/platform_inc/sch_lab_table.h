@@ -48,12 +48,13 @@
 typedef struct
 {
     CFE_SB_MsgId_t    MessageID;  /* Message ID for the table entry */
-    uint32            PacketRate; /* Rate: Send packet every N seconds */
+    uint32            PacketRate; /* Rate: Send packet every N ticks */
     CFE_MSG_FcnCode_t FcnCode;    /* Command/Function code to set */
 } SCH_LAB_ScheduleTableEntry_t;
 
 typedef struct
 {
+    uint32                       TickRate; /* Ticks per second to configure for timer (0=default) */
     SCH_LAB_ScheduleTableEntry_t Config[SCH_LAB_MAX_SCHEDULE_ENTRIES];
 } SCH_LAB_ScheduleTable_t;
 
