@@ -49,7 +49,8 @@
 **  3. If the table grows too big, increase SCH_LAB_MAX_SCHEDULE_ENTRIES
 */
 
-SCH_LAB_ScheduleTable_t SCH_TBL_Structure = {.Config = {
+SCH_LAB_ScheduleTable_t SCH_TBL_Structure = {.TickRate = 1,
+                                             .Config   = {
                                                  {CFE_SB_MSGID_WRAP_VALUE(CFE_ES_SEND_HK_MID), 4, 0},
                                                  {CFE_SB_MSGID_WRAP_VALUE(CFE_EVS_SEND_HK_MID), 4, 0},
                                                  {CFE_SB_MSGID_WRAP_VALUE(CFE_TIME_SEND_HK_MID), 4, 0},
