@@ -13,6 +13,12 @@ To change the list of packets that sch_lab sends out, edit the schedule table lo
 
 ## Version History
 
+### Development Build: v2.5.0-rc4+dev13
+
+- Add option to configure base tick rate
+- Reuse CodeQL, Static Analyis, and Format Check
+- See <https://github.com/nasa/sch_lab/pull/105> and <https://github.com/nasa/cFS/pull/410>
+
 ### Development Build: v2.5.0-rc4+dev6
 
 - Use separate address variable
