@@ -17,19 +17,16 @@
 **      WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 **      See the License for the specific language governing permissions and
 **      limitations under the License.
-**
-** File: sch_lab_table.h
-**
-** Purpose:
-**  This file contains the schedule tables for the SCH Lab app.
-**  It is intended to go in the platform include directory so the SCH_LAB
-**  app source code does not have to be modified.
-**
-** Notes:
-**
-*************************************************************************/
-#ifndef sch_lab_sched_tab_h_
-#define sch_lab_sched_tab_h_
+*/
+
+/**
+ * @file
+ *  This file contains the schedule tables for the SCH Lab app.
+ *  It is intended to go in the platform include directory so the SCH_LAB
+ *  app source code does not have to be modified.
+ */
+#ifndef SCH_LAB_TABLE_H
+#define SCH_LAB_TABLE_H
 
 #include "cfe_sb_extern_typedefs.h" /* for CFE_SB_MsgId_t */
 #include "cfe_msg_api_typedefs.h"   /* For CFE_MSG_FcnCode_t */
@@ -58,4 +55,4 @@ typedef struct
     SCH_LAB_ScheduleTableEntry_t Config[SCH_LAB_MAX_SCHEDULE_ENTRIES];
 } SCH_LAB_ScheduleTable_t;
 
-#endif /* sch_lab_sched_tab_h_ */
+#endif

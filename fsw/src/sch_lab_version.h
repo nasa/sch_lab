@@ -22,11 +22,9 @@
 #ifndef SCH_LAB_VERSION_H
 #define SCH_LAB_VERSION_H
 
-/*! @file SCH_LAB_version.h
- * @brief Purpose:
- *
+/**
+ * @file
  *  The SCH Lab Application header file containing version information
- *
  */
 
 /* Development Build Macro Definitions */
@@ -65,8 +63,4 @@
     " SCH Lab DEVELOPMENT BUILD " SCH_LAB_VERSION \
     ", Last Official Release: v2.3.0" /* For full support please use this version */
 
-#endif /* SCH_LAB_VERSION_H */
-
-/************************/
-/*  End of File Comment */
-/************************/
+#endif

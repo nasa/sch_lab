@@ -17,22 +17,15 @@
 **      WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 **      See the License for the specific language governing permissions and
 **      limitations under the License.
-**
-** File: sch_lab_perfids.h
-**
-** Purpose:
-**  Define SCH Lab Performance IDs
-**
-** Notes:
-**
-*************************************************************************/
-#ifndef _sch_lab_perfids_h_
-#define _sch_lab_perfids_h_
+*/
+
+/**
+ * @file
+ *  Define SCH Lab Performance IDs
+ */
+#ifndef SCH_LAB_PERFIDS_H
+#define SCH_LAB_PERFIDS_H
 
 #define SCH_MAIN_TASK_PERF_ID 36
 
-#endif /* _sch_lab_perfids_h_ */
-
-/************************/
-/*  End of File Comment */
-/************************/
+#endif
