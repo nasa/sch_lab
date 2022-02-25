@@ -13,6 +13,11 @@ To change the list of packets that sch_lab sends out, edit the schedule table lo
 
 ## Version History
 
+### Development Build: v2.5.0-rc4+dev16
+
+- Apply header guard standard
+- See <https://github.com/nasa/cFS/pull/432>
+
 ### Development Build: v2.5.0-rc4+dev13
 
 - Add option to configure base tick rate
