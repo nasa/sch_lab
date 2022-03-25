@@ -13,6 +13,12 @@ To change the list of packets that sch_lab sends out, edit the schedule table lo
 
 ## Version History
 
+### Development Build: v2.5.0-rc4+dev23
+
+- Update Copyright Headers
+- Standardize version.h 
+- See <https://github.com/nasa/sch_lab/pull/> and <https://github.com/nasa/cFS/445>
+
 ### Development Build: v2.5.0-rc4+dev16
 
 - Apply header guard standard
