@@ -7,8 +7,8 @@ on:
 jobs:
   codeql:
     name: Codeql
-    uses: astrogeco/cFS/.github/workflows/codeql-build.yml@integration-candidate
+    uses: nasa/cFS/.github/workflows/codeql-reusable.yml@main
     with: 
-      make-prep: 'make prep'
-      make: 'make sch_lab'
       component-path: apps/sch_lab
+      prep: 'make prep; make -C build/tools/elf2cfetbl'
+      make: 'make -C build/native/default_cpu1/apps/sch_lab'
