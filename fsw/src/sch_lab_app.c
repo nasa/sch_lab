@@ -158,7 +158,7 @@ int32 SCH_LAB_AppInit(void)
     int32                         Status;
     int32                         OsStatus;
     uint32                        TimerPeriod;
-    osal_id_t                     TimeBaseId;
+    osal_id_t                     TimeBaseId = OS_OBJECT_ID_UNDEFINED;
     SCH_LAB_ScheduleTable_t *     ConfigTable;
     SCH_LAB_ScheduleTableEntry_t *ConfigEntry;
     SCH_LAB_StateEntry_t *        LocalStateEntry;
