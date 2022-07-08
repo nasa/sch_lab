@@ -13,6 +13,10 @@ To change the list of packets that sch_lab sends out, edit the schedule table lo
 
 ## Version History
 
+### Development Build: v2.5.0-rc4+dev31
+- Update cmake mimimum required to something more recent
+- See <https://github.com/nasa/sch_lab/pull/118>
+
 ### Development Build: v2.5.0-rc4+dev29
 
 - Resolve uninit var static analysis warnings
