@@ -199,7 +199,7 @@ int32 SCH_LAB_AppInit(void)
     {
         CFE_ES_WriteToSysLog("SCH_LAB: Error Registering SCH_LAB_SchTbl, RC = 0x%08lX\n", (unsigned long)Status);
 
-        return (Status);
+        return Status;
     }
     else
     {
@@ -212,7 +212,7 @@ int32 SCH_LAB_AppInit(void)
             CFE_ES_WriteToSysLog("SCH_LAB: Error Loading Table SCH_LAB_SchTbl, RC = 0x%08lX\n", (unsigned long)Status);
             CFE_TBL_ReleaseAddress(SCH_LAB_Global.TblHandle);
 
-            return (Status);
+            return Status;
         }
     }
 
@@ -225,7 +225,7 @@ int32 SCH_LAB_AppInit(void)
         CFE_ES_WriteToSysLog("SCH_LAB: Error Getting Table's Address SCH_LAB_SchTbl, RC = 0x%08lX\n",
                              (unsigned long)Status);
 
-        return (Status);
+        return Status;
     }
 
     /*
@@ -294,6 +294,6 @@ int32 SCH_LAB_AppInit(void)
 
     OS_printf("SCH Lab Initialized.%s\n", SCH_LAB_VERSION_STRING);
 
-    return (CFE_SUCCESS);
+    return CFE_SUCCESS;
 
 } /*End of AppInit*/
