@@ -1,5 +1,9 @@
 # Changelog
 
+## Development Build: v2.5.0-rc4+dev41
+- Create CHANGELOG.md
+- See <https://github.com/nasa/sch_lab/pull/123>
+
 ## Development Build: v2.5.0-rc4:dev35
 - Remove unnecessary parentheses around return values.
 - See <https://github.com/nasa/sch_lab/pull/121>
