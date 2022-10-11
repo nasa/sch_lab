@@ -139,8 +139,7 @@ void SCH_Lab_AppMain(void)
     } /* end while */
 
     CFE_ES_ExitApp(Status);
-
-} /* end SCH_Lab_AppMain */
+}
 
 void SCH_LAB_LocalTimerCallback(osal_id_t object_id, void *arg)
 {
@@ -149,7 +148,7 @@ void SCH_LAB_LocalTimerCallback(osal_id_t object_id, void *arg)
 
 /* * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * */
 /*                                                                 */
-/* SCH_LAB_AppInit() -- initialization                             */
+/* Initialization                                                  */
 /*                                                                 */
 /* * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * */
 int32 SCH_LAB_AppInit(void)
@@ -295,5 +294,4 @@ int32 SCH_LAB_AppInit(void)
     OS_printf("SCH Lab Initialized.%s\n", SCH_LAB_VERSION_STRING);
 
     return CFE_SUCCESS;
-
-} /*End of AppInit*/
+}
