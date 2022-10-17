@@ -1,5 +1,9 @@
 # Changelog
 
+## Development Build: 2.5.0-rc4+dev45
+- Remove redundant comments
+- See <https://github.com/nasa/sch_lab/pull/126>
+
 ## Development Build: v2.5.0-rc4+dev41
 - Create CHANGELOG.md
 - See <https://github.com/nasa/sch_lab/pull/123>
