@@ -9,7 +9,7 @@ This lab application is a non-flight packet scheduler application for the cFS Bu
 
 sch_lab is a simple packet scheduler application with a one second resolution.
 
-To change the list of packets that sch_lab sends out, edit the schedule table located in the platform include file: fsw/platform_inc/sch_lab_sched_tab.h
+To change the list of packets that sch_lab sends out, edit the schedule table located in the tables directory: fsw/tables/sch_lab_table.c
 
 ## Known issues
 
