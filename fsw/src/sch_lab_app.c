@@ -27,10 +27,7 @@
 #include <string.h>
 
 #include "cfe.h"
-#include "cfe_sb.h"
 #include "osapi.h"
-#include "cfe_es.h"
-#include "cfe_error.h"
 
 #include "sch_lab_perfids.h"
 #include "sch_lab_version.h"
