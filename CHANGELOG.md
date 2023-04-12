@@ -1,5 +1,9 @@
 # Changelog
 
+## Development Build: 2.5.0-rc4+dev49
+- update cmake recipe
+- See <https://github.com/nasa/sch_lab/pull/136>
+
 ## Development Build: 2.5.0-rc4+dev45
 - Remove redundant comments
 - See <https://github.com/nasa/sch_lab/pull/126>
