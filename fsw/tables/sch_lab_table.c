@@ -23,16 +23,35 @@
 /*
 ** Include headers for message IDs here
 */
+#ifdef HAVE_CI_LAB
 #include "ci_lab_msgids.h"
+#endif
+
+#ifdef HAVE_TO_LAB
 #include "to_lab_msgids.h"
+#endif
 
+#ifdef HAVE_SAMPLE_APP
 #include "sample_app_msgids.h"
+#endif
 
-#if 0
-#include "sc_msgids.h"
+#ifdef HAVE_HS_APP
 #include "hs_msgids.h"
+#endif
+
+#ifdef HAVE_FM_APP
 #include "fm_msgids.h"
+#endif
+
+#ifdef HAVE_SC_APP
+#include "sc_msgids.h"
+#endif
+
+#ifdef HAVE_DS_APP
 #include "ds_msgids.h"
+#endif
+
+#ifdef HAVE_LC_APP
 #include "lc_msgids.h"
 #endif
 
@@ -45,25 +64,40 @@
 **  3. If the table grows too big, increase SCH_LAB_MAX_SCHEDULE_ENTRIES
 */
 
-SCH_LAB_ScheduleTable_t SCH_TBL_Structure = {.TickRate = 1,
-                                             .Config   = {
-                                                 {CFE_SB_MSGID_WRAP_VALUE(CFE_ES_SEND_HK_MID), 4, 0},
-                                                 {CFE_SB_MSGID_WRAP_VALUE(CFE_EVS_SEND_HK_MID), 4, 0},
-                                                 {CFE_SB_MSGID_WRAP_VALUE(CFE_TIME_SEND_HK_MID), 4, 0},
-                                                 {CFE_SB_MSGID_WRAP_VALUE(CFE_SB_SEND_HK_MID), 4, 0},
-                                                 {CFE_SB_MSGID_WRAP_VALUE(CFE_TBL_SEND_HK_MID), 4, 0},
-                                                 {CFE_SB_MSGID_WRAP_VALUE(CI_LAB_SEND_HK_MID), 4, 0},
-                                                 {CFE_SB_MSGID_WRAP_VALUE(TO_LAB_SEND_HK_MID), 4, 0},
-                                                 {CFE_SB_MSGID_WRAP_VALUE(SAMPLE_APP_SEND_HK_MID), 4, 0},
-#if 0
-                {CFE_SB_MSGID_WRAP_VALUE(SC_SEND_HK_MID),       4, 0},
-                {CFE_SB_MSGID_WRAP_VALUE(SC_1HZ_WAKEUP_MID),    1, 0},  /* Example of a 1hz packet */
-                {CFE_SB_MSGID_WRAP_VALUE(HS_SEND_HK_MID),       0, 0},  /* Example of a message that wouldn't be sent */
-                {CFE_SB_MSGID_WRAP_VALUE(FM_SEND_HK_MID),       4, 0},
-                {CFE_SB_MSGID_WRAP_VALUE(DS_SEND_HK_MID),       4, 0},
-                {CFE_SB_MSGID_WRAP_VALUE(LC_SEND_HK_MID),       4, 0},
+SCH_LAB_ScheduleTable_t SCH_TBL_Structure = {
+    .TickRate = 1,
+    .Config   = {
+        {CFE_SB_MSGID_WRAP_VALUE(CFE_ES_SEND_HK_MID), 4, 0},
+        {CFE_SB_MSGID_WRAP_VALUE(CFE_EVS_SEND_HK_MID), 4, 0},
+        {CFE_SB_MSGID_WRAP_VALUE(CFE_TIME_SEND_HK_MID), 4, 0},
+        {CFE_SB_MSGID_WRAP_VALUE(CFE_SB_SEND_HK_MID), 4, 0},
+        {CFE_SB_MSGID_WRAP_VALUE(CFE_TBL_SEND_HK_MID), 4, 0},
+#ifdef HAVE_CI_LAB
+        {CFE_SB_MSGID_WRAP_VALUE(CI_LAB_SEND_HK_MID), 4, 0},
 #endif
-                                             }};
+#ifdef HAVE_TO_LAB
+        {CFE_SB_MSGID_WRAP_VALUE(TO_LAB_SEND_HK_MID), 4, 0},
+#endif
+#ifdef HAVE_SAMPLE_APP
+        {CFE_SB_MSGID_WRAP_VALUE(SAMPLE_APP_SEND_HK_MID), 4, 0},
+#endif
+#ifdef HAVE_SC_APP
+        {CFE_SB_MSGID_WRAP_VALUE(SC_SEND_HK_MID), 4, 0},
+        {CFE_SB_MSGID_WRAP_VALUE(SC_1HZ_WAKEUP_MID), 1, 0}, /* Example of a 1hz packet */
+#endif
+#ifdef HAVE_HS_APP
+        {CFE_SB_MSGID_WRAP_VALUE(HS_SEND_HK_MID), 0, 0}, /* Example of a message that wouldn't be sent */
+#endif
+#ifdef HAVE_FM_APP
+        {CFE_SB_MSGID_WRAP_VALUE(FM_SEND_HK_MID), 4, 0},
+#endif
+#ifdef HAVE_DS_APP
+        {CFE_SB_MSGID_WRAP_VALUE(DS_SEND_HK_MID), 4, 0},
+#endif
+#ifdef HAVE_LC_APP
+        {CFE_SB_MSGID_WRAP_VALUE(LC_SEND_HK_MID), 4, 0},
+#endif
+    }};
 
 /*
 ** The macro below identifies:

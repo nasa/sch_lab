@@ -1,5 +1,9 @@
 # Changelog
 
+## Development Build: 2.5.0-rc4+dev53
+- adjust table based on apps present
+- See <https://github.com/nasa/sch_lab/pull/139>
+
 ## Development Build: 2.5.0-rc4+dev49
 - update cmake recipe
 - See <https://github.com/nasa/sch_lab/pull/136>
