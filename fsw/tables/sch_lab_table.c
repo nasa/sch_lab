@@ -52,7 +52,6 @@
 #include "lc_msgids.h"
 #endif
 
-
 /*
 ** Include headers for message IDs here
 */
@@ -70,43 +69,44 @@
 **  3. If the table grows too big, increase SCH_LAB_MAX_SCHEDULE_ENTRIES
 */
 
-SCH_LAB_ScheduleTable_t SCH_TBL_Structure = {.TickRate = 100,
-                                             .Config   = {
-                                                 {CFE_SB_MSGID_WRAP_VALUE(CFE_ES_SEND_HK_MID), 100, 0},   /* Example of a 1hz packet */
-                                                 {CFE_SB_MSGID_WRAP_VALUE(CFE_TBL_SEND_HK_MID), 50, 0},
-                                                 {CFE_SB_MSGID_WRAP_VALUE(CFE_TIME_SEND_HK_MID), 98, 0},
-                                                 {CFE_SB_MSGID_WRAP_VALUE(CFE_SB_SEND_HK_MID), 97, 0},
-                                                 {CFE_SB_MSGID_WRAP_VALUE(CFE_EVS_SEND_HK_MID), 96, 0},
+SCH_LAB_ScheduleTable_t SCH_TBL_Structure = {
+    .TickRate = 100,
+    .Config   = {
+        {CFE_SB_MSGID_WRAP_VALUE(CFE_ES_SEND_HK_MID), 100, 0}, /* Example of a 1hz packet */
+        {CFE_SB_MSGID_WRAP_VALUE(CFE_TBL_SEND_HK_MID), 50, 0},
+        {CFE_SB_MSGID_WRAP_VALUE(CFE_TIME_SEND_HK_MID), 98, 0},
+        {CFE_SB_MSGID_WRAP_VALUE(CFE_SB_SEND_HK_MID), 97, 0},
+        {CFE_SB_MSGID_WRAP_VALUE(CFE_EVS_SEND_HK_MID), 96, 0},
 
-                                            /* Example of including additional open source apps  */
-                                            #ifdef HAVE_CI_LAB
-                                                 {CFE_SB_MSGID_WRAP_VALUE(CI_LAB_SEND_HK_MID), 95, 0},
-                                            #endif
-                                            #ifdef HAVE_TO_LAB
-                                                 {CFE_SB_MSGID_WRAP_VALUE(TO_LAB_SEND_HK_MID), 94, 0},
-                                            #endif
-                                            #ifdef HAVE_SAMPLE_APP
-                                                 {CFE_SB_MSGID_WRAP_VALUE(SAMPLE_APP_SEND_HK_MID), 93, 0},
-                                            #endif
-                                            #ifdef HAVE_SC
-                                                 {CFE_SB_MSGID_WRAP_VALUE(SC_SEND_HK_MID), 92, 0},
-                                                 {CFE_SB_MSGID_WRAP_VALUE(SC_1HZ_WAKEUP_MID), 91, 0},
-                                            #endif
-                                            #ifdef HAVE_HS
-                                                 {CFE_SB_MSGID_WRAP_VALUE(HS_SEND_HK_MID), 90, 0}, /* Example of a message that wouldn't be sent */
-                                            #endif
-                                            #ifdef HAVE_FM
-                                                 {CFE_SB_MSGID_WRAP_VALUE(FM_SEND_HK_MID), 101, 0},
-                                            #endif
-                                            #ifdef HAVE_DS
-                                                 {CFE_SB_MSGID_WRAP_VALUE(DS_SEND_HK_MID), 102, 0},
-                                            #endif
-                                            #ifdef HAVE_LC
-                                                {CFE_SB_MSGID_WRAP_VALUE(LC_SEND_HK_MID), 103, 0},
-                                                {CFE_SB_MSGID_WRAP_VALUE(LC_SAMPLE_AP_MID),     500, 0, 8, { 0, 175, 1 }},
-                                            #endif
+/* Example of including additional open source apps  */
+#ifdef HAVE_CI_LAB
+        {CFE_SB_MSGID_WRAP_VALUE(CI_LAB_SEND_HK_MID), 95, 0},
+#endif
+#ifdef HAVE_TO_LAB
+        {CFE_SB_MSGID_WRAP_VALUE(TO_LAB_SEND_HK_MID), 94, 0},
+#endif
+#ifdef HAVE_SAMPLE_APP
+        {CFE_SB_MSGID_WRAP_VALUE(SAMPLE_APP_SEND_HK_MID), 93, 0},
+#endif
+#ifdef HAVE_SC
+        {CFE_SB_MSGID_WRAP_VALUE(SC_SEND_HK_MID), 92, 0},
+        {CFE_SB_MSGID_WRAP_VALUE(SC_1HZ_WAKEUP_MID), 91, 0},
+#endif
+#ifdef HAVE_HS
+        {CFE_SB_MSGID_WRAP_VALUE(HS_SEND_HK_MID), 90, 0}, /* Example of a message that wouldn't be sent */
+#endif
+#ifdef HAVE_FM
+        {CFE_SB_MSGID_WRAP_VALUE(FM_SEND_HK_MID), 101, 0},
+#endif
+#ifdef HAVE_DS
+        {CFE_SB_MSGID_WRAP_VALUE(DS_SEND_HK_MID), 102, 0},
+#endif
+#ifdef HAVE_LC
+        {CFE_SB_MSGID_WRAP_VALUE(LC_SEND_HK_MID), 103, 0},
+        {CFE_SB_MSGID_WRAP_VALUE(LC_SAMPLE_AP_MID), 500, 0, 8, {0, 175, 1}},
+#endif
 
-                                             }};
+    }};
 
 /*
 ** The macro below identifies:

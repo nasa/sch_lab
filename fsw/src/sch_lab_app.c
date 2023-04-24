@@ -66,11 +66,10 @@ typedef struct
 */
 SCH_LAB_GlobalData_t SCH_LAB_Global;
 
-
 /*
 ** Local Function Prototypes
 */
-int32 SCH_LAB_AppInit(void);
+CFE_Status_t SCH_LAB_AppInit(void);
 
 /*
 ** AppMain
@@ -155,10 +154,10 @@ void SCH_LAB_LocalTimerCallback(osal_id_t object_id, void *arg)
 /* Initialization                                                  */
 /*                                                                 */
 /* * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * */
-int32 SCH_LAB_AppInit(void)
+CFE_Status_t SCH_LAB_AppInit(void)
 {
     int                           i, x;
-    int32                         Status;
+    CFE_Status_t                  Status;
     int32                         OsStatus;
     uint32                        TimerPeriod;
     osal_id_t                     TimeBaseId = OS_OBJECT_ID_UNDEFINED;
@@ -245,15 +244,15 @@ int32 SCH_LAB_AppInit(void)
         {
             /* Initialize the message with the length of the header + payload */
             CFE_MSG_Init(CFE_MSG_PTR(LocalStateEntry->CommandHeader), ConfigEntry->MessageID,
-                        sizeof(LocalStateEntry->CommandHeader) + ConfigEntry->PayloadLength);
+                         sizeof(LocalStateEntry->CommandHeader) + ConfigEntry->PayloadLength);
             CFE_MSG_SetFcnCode(CFE_MSG_PTR(LocalStateEntry->CommandHeader), ConfigEntry->FcnCode);
 
-            LocalStateEntry->PacketRate = ConfigEntry->PacketRate;
+            LocalStateEntry->PacketRate    = ConfigEntry->PacketRate;
             LocalStateEntry->PayloadLength = ConfigEntry->PayloadLength;
 
-            for (x =0; x < SCH_MAX_MSG_WORDS; x++)
+            for (x = 0; x < SCH_MAX_MSG_WORDS; x++)
             {
-                LocalStateEntry->MessageBuffer[x]=ConfigEntry->MessageBuffer[x];
+                LocalStateEntry->MessageBuffer[x] = ConfigEntry->MessageBuffer[x];
             }
         }
         ++ConfigEntry;

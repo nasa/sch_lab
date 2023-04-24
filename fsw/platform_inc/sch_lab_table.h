@@ -38,12 +38,10 @@
 
 #define SCH_MAX_MSG_WORDS 32
 
-#ifdef SOFTWARE_BIG_BIT_ORDER 
-#define SCH_PACK_32BIT(value) \
-(uint16)((value & 0xFFFF0000) >> 16), (uint16)(value & 0x0000FFFF) 
-#else 
-#define SCH_PACK_32BIT(value) \
-(uint16)(value & 0x0000FFFF), (uint16)((value & 0xFFFF0000) >> 16)
+#ifdef SOFTWARE_BIG_BIT_ORDER
+#define SCH_PACK_32BIT(value) (uint16)((value & 0xFFFF0000) >> 16), (uint16)(value & 0x0000FFFF)
+#else
+#define SCH_PACK_32BIT(value) (uint16)(value & 0x0000FFFF), (uint16)((value & 0xFFFF0000) >> 16)
 #endif
 
 /*
