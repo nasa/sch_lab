@@ -46,6 +46,8 @@
 typedef struct
 {
     CFE_MSG_CommandHeader_t CommandHeader;
+    uint16                  MessageBuffer[SCH_MAX_MSG_WORDS];
+    uint16                  PayloadLength;
     uint32                  PacketRate;
     uint32                  Counter;
 } SCH_LAB_StateEntry_t;
@@ -63,6 +65,7 @@ typedef struct
 ** Global Variables
 */
 SCH_LAB_GlobalData_t SCH_LAB_Global;
+
 
 /*
 ** Local Function Prototypes
@@ -121,6 +124,7 @@ void SCH_Lab_AppMain(void)
             ** Process table every tick, sending packets that are ready
             */
             LocalStateEntry = SCH_LAB_Global.State;
+
             for (i = 0; i < SCH_LAB_MAX_SCHEDULE_ENTRIES; i++)
             {
                 if (LocalStateEntry->PacketRate != 0)
@@ -153,7 +157,7 @@ void SCH_LAB_LocalTimerCallback(osal_id_t object_id, void *arg)
 /* * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * */
 int32 SCH_LAB_AppInit(void)
 {
-    int                           i;
+    int                           i, x;
     int32                         Status;
     int32                         OsStatus;
     uint32                        TimerPeriod;
@@ -233,14 +237,24 @@ int32 SCH_LAB_AppInit(void)
     ConfigTable     = TableAddr;
     ConfigEntry     = ConfigTable->Config;
     LocalStateEntry = SCH_LAB_Global.State;
+
+    /* Populate the CCSDS message and move the message content into the proper user data space. */
     for (i = 0; i < SCH_LAB_MAX_SCHEDULE_ENTRIES; i++)
     {
         if (ConfigEntry->PacketRate != 0)
         {
+            /* Initialize the message with the length of the header + payload */
             CFE_MSG_Init(CFE_MSG_PTR(LocalStateEntry->CommandHeader), ConfigEntry->MessageID,
-                         sizeof(LocalStateEntry->CommandHeader));
+                        sizeof(LocalStateEntry->CommandHeader) + ConfigEntry->PayloadLength);
             CFE_MSG_SetFcnCode(CFE_MSG_PTR(LocalStateEntry->CommandHeader), ConfigEntry->FcnCode);
+
             LocalStateEntry->PacketRate = ConfigEntry->PacketRate;
+            LocalStateEntry->PayloadLength = ConfigEntry->PayloadLength;
+
+            for (x =0; x < SCH_MAX_MSG_WORDS; x++)
+            {
+                LocalStateEntry->MessageBuffer[x]=ConfigEntry->MessageBuffer[x];
+            }
         }
         ++ConfigEntry;
         ++LocalStateEntry;
