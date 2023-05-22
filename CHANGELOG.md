@@ -1,5 +1,9 @@
 # Changelog
 
+## Development Build: v2.5.0-rc4+dev57
+- Add support for cmds w/args
+- See <https://github.com/nasa/sch_lab/pull/144>
+
 ## Development Build: 2.5.0-rc4+dev53
 - adjust table based on apps present
 - See <https://github.com/nasa/sch_lab/pull/139>
