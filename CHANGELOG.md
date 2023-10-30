@@ -1,5 +1,9 @@
 # Changelog
 
+## Development Build: v2.5.0-rc4+dev61
+- implement header file convention for SCH_LAB
+- See <https://github.com/nasa/sch_lab/pull/151>
+
 ## Development Build: v2.5.0-rc4+dev57
 - Add support for cmds w/args
 - See <https://github.com/nasa/sch_lab/pull/144>
