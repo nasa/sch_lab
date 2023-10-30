@@ -18,11 +18,29 @@
 
 /**
  * @file
- *  Define SCH Lab Performance IDs
+ *
+ * CFS SCH_LAB Application Mission Configuration Header File
+ *
+ * This is a compatibility header for the "mission_cfg.h" file that has
+ * traditionally provided public config definitions for each CFS app.
+ *
+ * @note This file may be overridden/superceded by mission-provided defintions
+ * either by overriding this header or by generating definitions from a command/data
+ * dictionary tool.
  */
-#ifndef SCH_LAB_PERFIDS_H
-#define SCH_LAB_PERFIDS_H
+#ifndef SCH_LAB_INTERFACE_CFG_H
+#define SCH_LAB_INTERFACE_CFG_H
 
-#define SCH_MAIN_TASK_PERF_ID 36
+/**
+ * @brief The maximum number of schedule table entries
+ */
+#define SCH_LAB_MAX_SCHEDULE_ENTRIES 32
 
-#endif
+/**
+ * @brief The maximum number of arguments to each schedule message entry
+ *
+ * This is allocated in units of 16 bit words.
+ */
+#define SCH_LAB_MAX_ARGS_PER_ENTRY 32
+
+#endif /* SCH_LAB_INTERFACE_CFG_H */
