@@ -68,7 +68,7 @@ int32 SCH_LAB_AppInit(void);
 /*
 ** AppMain
 */
-void SCH_Lab_AppMain(void)
+void SCH_LAB_AppMain(void)
 {
     int                   i;
     uint32                SCH_OneHzPktsRcvd = 0;
@@ -78,7 +78,7 @@ void SCH_Lab_AppMain(void)
     SCH_LAB_StateEntry_t *LocalStateEntry;
     CFE_SB_Buffer_t *     SBBufPtr;
 
-    CFE_ES_PerfLogEntry(SCH_MAIN_TASK_PERF_ID);
+    CFE_ES_PerfLogEntry(SCH_LAB_MAIN_TASK_PERF_ID);
 
     Status = SCH_LAB_AppInit();
     if (Status != CFE_SUCCESS)
@@ -90,7 +90,7 @@ void SCH_Lab_AppMain(void)
     /* Loop Forever */
     while (CFE_ES_RunLoop(&RunStatus) == true)
     {
-        CFE_ES_PerfLogExit(SCH_MAIN_TASK_PERF_ID);
+        CFE_ES_PerfLogExit(SCH_LAB_MAIN_TASK_PERF_ID);
 
         /* Pend on timing sem */
         OsStatus = OS_CountSemTake(SCH_LAB_Global.TimingSem);
@@ -104,7 +104,7 @@ void SCH_Lab_AppMain(void)
             Status = CFE_STATUS_EXTERNAL_RESOURCE_FAIL;
         }
 
-        CFE_ES_PerfLogEntry(SCH_MAIN_TASK_PERF_ID);
+        CFE_ES_PerfLogEntry(SCH_LAB_MAIN_TASK_PERF_ID);
 
         if (Status == CFE_SUCCESS)
         {
@@ -202,7 +202,7 @@ int32 SCH_LAB_AppInit(void)
         /*
         ** Loading Table
         */
-        Status = CFE_TBL_Load(SCH_LAB_Global.TblHandle, CFE_TBL_SRC_FILE, SCH_TBL_DEFAULT_FILE);
+        Status = CFE_TBL_Load(SCH_LAB_Global.TblHandle, CFE_TBL_SRC_FILE, SCH_LAB_TBL_DEFAULT_FILE);
         if (Status != CFE_SUCCESS)
         {
             CFE_ES_WriteToSysLog("SCH_LAB: Error Loading Table ScheduleTable, RC = 0x%08lX\n", (unsigned long)Status);
