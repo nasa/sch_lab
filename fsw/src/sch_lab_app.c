@@ -63,7 +63,7 @@ SCH_LAB_GlobalData_t SCH_LAB_Global;
 /*
 ** Local Function Prototypes
 */
-int32 SCH_LAB_AppInit(void);
+CFE_Status_t SCH_LAB_AppInit(void);
 
 /*
 ** AppMain
@@ -148,10 +148,10 @@ void SCH_LAB_LocalTimerCallback(osal_id_t object_id, void *arg)
 /* Initialization                                                  */
 /*                                                                 */
 /* * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * */
-int32 SCH_LAB_AppInit(void)
+CFE_Status_t SCH_LAB_AppInit(void)
 {
     int                           i, x;
-    int32                         Status;
+    CFE_Status_t                  Status;
     int32                         OsStatus;
     uint32                        TimerPeriod;
     osal_id_t                     TimeBaseId = OS_OBJECT_ID_UNDEFINED;
