@@ -135,7 +135,7 @@ void SCH_LAB_AppMain(void)
 
     } /* end while */
 
-    CFE_ES_ExitApp(Status);
+    CFE_ES_ExitApp(RunStatus);
 }
 
 void SCH_LAB_LocalTimerCallback(osal_id_t object_id, void *arg)
