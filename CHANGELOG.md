@@ -1,5 +1,12 @@
 # Changelog
 
+## Development Build: v2.5.0-rc4+dev71
+- Standardize naming of SCH_LAB functions/macros
+- Call CFE_ES_ExitApp with RunStatus rather than internal status variable
+- Convert int32 return codes and variables to CFE_Status_t
+- Remove component-specific cFE header #includes
+- See <https://github.com/nasa/sch_lab/pull/129>, <https://github.com/nasa/sch_lab/pull/149>, <https://github.com/nasa/sch_lab/pull/142>, and <https://github.com/nasa/sch_lab/pull/134>
+
 ## Development Build: v2.5.0-rc4+dev61
 - implement header file convention for SCH_LAB
 - See <https://github.com/nasa/sch_lab/pull/151>
