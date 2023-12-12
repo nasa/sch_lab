@@ -25,7 +25,7 @@
  */
 
 /* Development Build Macro Definitions */
-#define SCH_LAB_BUILD_NUMBER 71 /*!< Development Build: Number of commits since baseline */
+#define SCH_LAB_BUILD_NUMBER 75 /*!< Development Build: Number of commits since baseline */
 #define SCH_LAB_BUILD_BASELINE \
     "v2.5.0-rc4" /*!< Development Build: git tag that is the base for the current development */
 
