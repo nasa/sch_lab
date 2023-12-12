@@ -1,5 +1,9 @@
 # Changelog
 
+## Development Build: v2.5.0-rc4+dev75
+- correct inclusion for SCH_LAB example table
+- See <https://github.com/nasa/sch_lab/pull/156>
+
 ## Development Build: v2.5.0-rc4+dev71
 - Standardize naming of SCH_LAB functions/macros
 - Call CFE_ES_ExitApp with RunStatus rather than internal status variable
