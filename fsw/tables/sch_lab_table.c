@@ -18,7 +18,10 @@
 
 #include "cfe_tbl_filedef.h" /* Required to obtain the CFE_TBL_FILEDEF macro definition */
 #include "sch_lab_tbl.h"
-#include "cfe_sb.h" /* Required to use the CFE_SB_MSGID_WRAP_VALUE macro */
+#include "cfe_sb_api_typedefs.h" /* Required to use the CFE_SB_MSGID_WRAP_VALUE macro */
+
+/* This is for the standard set of CFE core app MsgID values */
+#include "cfe_msgids.h"
 
 #ifdef HAVE_CI_LAB
 #include "ci_lab_msgids.h"
