@@ -18,6 +18,15 @@ set(SCH_LAB_MISSION_CONFIG_FILE_LIST
   sch_lab_tblstruct.h
 )
 
+if (CFE_EDS_ENABLED_BUILD)
+
+  # In an EDS-based build, these files come generated from the EDS tool
+  set(SCH_LAB_CFGFILE_SRC_sch_lab_interface_cfg "sch_lab_eds_designparameters.h")
+  set(SCH_LAB_CFGFILE_SRC_sch_lab_tbldefs       "sch_lab_eds_typedefs.h")
+  set(SCH_LAB_CFGFILE_SRC_sch_lab_tblstruct     "sch_lab_eds_typedefs.h")
+
+endif(CFE_EDS_ENABLED_BUILD)
+
 # Create wrappers around the all the config header files
 # This makes them individually overridable by the missions, without modifying
 # the distribution default copies
