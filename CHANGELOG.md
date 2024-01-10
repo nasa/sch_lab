@@ -1,5 +1,10 @@
 # Changelog
 
+## Development Build: v2.5.0-rc4+dev83
+- SC_1HZ_WAKEUP_MID deprecated
+- CFE_TIME_1HZ_CMD_MID deprecated
+- See <https://github.com/nasa/sch_lab/pull/164> and <https://github.com/nasa/sch_lab/pull/163>
+
 ## Development Build: v2.5.0-rc4+dev75
 - correct inclusion for SCH_LAB example table
 - See <https://github.com/nasa/sch_lab/pull/156>
