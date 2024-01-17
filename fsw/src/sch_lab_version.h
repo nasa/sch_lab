@@ -25,7 +25,7 @@
  */
 
 /* Development Build Macro Definitions */
-#define SCH_LAB_BUILD_NUMBER     83 /*!< Development Build: Number of commits since baseline */
+#define SCH_LAB_BUILD_NUMBER     29 /*!< Development Build: Number of commits since baseline */
 #define SCH_LAB_BUILD_BASELINE   "equuleus-rc1" /*!< Development Build: git tag that is the base for the current development */
 #define SCH_LAB_BUILD_DEV_CYCLE  "equuleus-rc2" /**< @brief Development: Release name for current development cycle */
 #define SCH_LAB_BUILD_CODENAME   "Equuleus" /**< @brief: Development: Code name for the current build */
