@@ -28,6 +28,7 @@
 
 #include "cfe.h"
 #include "cfe_msgids.h"
+#include "cfe_config.h"
 
 #include "sch_lab_perfids.h"
 #include "sch_lab_version.h"
@@ -159,6 +160,7 @@ CFE_Status_t SCH_LAB_AppInit(void)
     SCH_LAB_ScheduleTableEntry_t *ConfigEntry;
     SCH_LAB_StateEntry_t *        LocalStateEntry;
     void *                        TableAddr;
+    char                          VersionString[SCH_LAB_CFG_MAX_VERSION_STR_LEN];
 
     memset(&SCH_LAB_Global, 0, sizeof(SCH_LAB_Global));
 
@@ -298,7 +300,10 @@ CFE_Status_t SCH_LAB_AppInit(void)
         CFE_ES_WriteToSysLog("%s: OS_TimerSet failed:RC=%ld\n", __func__, (long)OsStatus);
     }
 
-    OS_printf("SCH Lab Initialized.%s\n", SCH_LAB_VERSION_STRING);
+    CFE_Config_GetVersionString(VersionString, SCH_LAB_CFG_MAX_VERSION_STR_LEN, "SCH Lab",
+                          SCH_LAB_VERSION, SCH_LAB_BUILD_CODENAME, SCH_LAB_LAST_OFFICIAL);
+
+    OS_printf("SCH Lab Initialized.%s\n", VersionString);
 
     return CFE_SUCCESS;
 }
