@@ -85,7 +85,7 @@ SCH_LAB_ScheduleTable_t SCH_LAB_ScheduleTable = {
 #endif
 #ifdef HAVE_SC
         {CFE_SB_MSGID_WRAP_VALUE(SC_SEND_HK_MID), 92, 0},
-        {CFE_SB_MSGID_WRAP_VALUE(SC_1HZ_WAKEUP_MID), 91, 0},
+        {CFE_SB_MSGID_WRAP_VALUE(SC_ONEHZ_WAKEUP_MID), 91, 0},
 #endif
 #ifdef HAVE_HS
         {CFE_SB_MSGID_WRAP_VALUE(HS_SEND_HK_MID), 90, 0}, /* Example of a message that wouldn't be sent */
