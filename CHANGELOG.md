@@ -1,5 +1,9 @@
 # Changelog
 
+## Development Build: equuleus-rc1+dev29
+- updating sch_lab to use new versioning system
+- See <https://github.com/nasa/sch_lab/pull/161>
+
 ## Development Build: v2.5.0-rc4+dev83
 - SC_1HZ_WAKEUP_MID deprecated
 - CFE_TIME_1HZ_CMD_MID deprecated
