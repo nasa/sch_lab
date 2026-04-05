@@ -32,23 +32,35 @@
 **  3. If the table grows too big, increase SCH_LAB_MISSION_MAX_SCHEDULE_ENTRIES
 */
 
+/*
+** Cross-app SEND_HK MsgId values (numeric) to avoid cross-app include path issues.
+** CMD base = 0x1800, OR'd with topic ID from each app's topicids.h
+**
+** TO_LAB:     SEND_HK topic=0x81 → CMD MID=0x1881
+** CI_LAB:     SEND_HK topic=0x85 → CMD MID=0x1885
+** SAMPLE_APP: SEND_HK topic=0x83 → CMD MID=0x1883
+*/
+#define NUMERIC_TO_LAB_SEND_HK_MID      0x1881
+#define NUMERIC_CI_LAB_SEND_HK_MID      0x1885
+#define NUMERIC_SAMPLE_APP_SEND_HK_MID  0x1883
+
 SCH_LAB_ScheduleTable_t Schedule = {
     .TickRate = 100,
     .Config   = {
-        /*
-        ** This is an empty default table.
-        ** Projects should override this default table with their own configurations.
-        ** Examples of cFE HK packet requests are shown in the comment below.
-        */
-        {CFE_SB_MSGID_RESERVED, 0, 0},
-        /*
-        ** Example of a cFE HK packet requests
+        /* cFE core HK wakeups - trigger each core service to send housekeeping */
         {CFE_SB_MSGID_WRAP_VALUE(CFE_ES_SEND_HK_MID), 100, 0},
-        {CFE_SB_MSGID_WRAP_VALUE(CFE_TBL_SEND_HK_MID), 50, 0},
-        {CFE_SB_MSGID_WRAP_VALUE(CFE_TIME_SEND_HK_MID), 98, 0},
-        {CFE_SB_MSGID_WRAP_VALUE(CFE_SB_SEND_HK_MID), 97, 0},
-        {CFE_SB_MSGID_WRAP_VALUE(CFE_EVS_SEND_HK_MID), 96, 0},
-        */
+        {CFE_SB_MSGID_WRAP_VALUE(CFE_EVS_SEND_HK_MID), 100, 0},
+        {CFE_SB_MSGID_WRAP_VALUE(CFE_SB_SEND_HK_MID), 100, 0},
+        {CFE_SB_MSGID_WRAP_VALUE(CFE_TBL_SEND_HK_MID), 100, 0},
+        {CFE_SB_MSGID_WRAP_VALUE(CFE_TIME_SEND_HK_MID), 100, 0},
+
+        /* Lab app HK wakeups */
+        {CFE_SB_MSGID_WRAP_VALUE(NUMERIC_TO_LAB_SEND_HK_MID), 100, 0},
+        {CFE_SB_MSGID_WRAP_VALUE(NUMERIC_CI_LAB_SEND_HK_MID), 100, 0},
+        {CFE_SB_MSGID_WRAP_VALUE(NUMERIC_SAMPLE_APP_SEND_HK_MID), 100, 0},
+
+        /* End-of-table marker */
+        {CFE_SB_MSGID_RESERVED, 0, 0},
     }
 };
 
