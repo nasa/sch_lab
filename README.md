@@ -5,7 +5,9 @@
 
 This repository contains NASA's Scheduler Lab (sch_lab), which is a framework component of the Core Flight System.
 
-This lab application is a non-flight packet scheduler application for the cFS Bundle. It is intended to be located in the `apps/sch_lab` subdirectory of a cFS Mission Tree. The Core Flight System is bundled at <https://github.com/nasa/cFS> (which includes sch_lab as a submodule), which includes build and execution instructions.
+This lab application is a non-flight packet scheduler application for the cFS Bundle. It is intended to be located in the `apps/sch_lab` subdirectory of a cFS Mission Tree. A demonstration bundle of the Core Flight System is available at <https://github.com/nasa/cFS> (which includes sch_lab as a submodule) and includes build and execution instructions.
+
+For information about a mission ready cFS bundle, see: <https://github.com/nasa/cFS#cfs-gov-mission-ready-version> 
 
 sch_lab is a simple packet scheduler application with a one second resolution.
 
@@ -13,7 +15,7 @@ To change the list of packets that sch_lab sends out, edit the schedule table lo
 
 ## Known issues
 
-As a lab application, extensive testing is not performed prior to release and only minimal functionality is included.
+As a lab application, extensive testing is not performed prior to release and only minimal functionality is included. See all [open issues](https://github.com/nasa/sch_lab/issues).
 
 ## Getting Help
 
