@@ -25,17 +25,16 @@
  */
 
 /* Development Build Macro Definitions */
-#define SCH_LAB_BUILD_NUMBER    1        /*!< Development Build: Number of commits since baseline */
-#define SCH_LAB_BUILD_BASELINE  "v7.0.1" /*!< Development Build: git tag that is the base for current development */
-#define SCH_LAB_BUILD_DEV_CYCLE "v7.0.1" /**< @brief Development: Release name for current development cycle */
-#define SCH_LAB_BUILD_CODENAME  "Draco"  /**< @brief: Development: Code name for the current build */
+#define SCH_LAB_BUILD_NUMBER   1 /*!< Development Build: Number of commits since baseline */
+#define SCH_LAB_BUILD_BASELINE "v7.0.2"
+#define SCH_LAB_BUILD_CODENAME "Draco" /**< @brief: Development: Code name for the current build */
 
 /*
  * Version Macros, see \ref cfsversions for definitions.
  */
-#define SCH_LAB_MAJOR_VERSION 7 /*!< @brief Major version number */
-#define SCH_LAB_MINOR_VERSION 0 /*!< @brief Minor version number */
-#define SCH_LAB_REVISION      1 /*!< @brief Revision version number. Value of 0 indicates a development version.*/
+#define SCH_LAB_MAJOR_VERSION 7
+#define SCH_LAB_MINOR_VERSION 0
+#define SCH_LAB_REVISION      2
 
 /**
  * @brief Last official release.
@@ -58,7 +57,7 @@
  * @details Baseline git tag + Number of commits since baseline. @n
  * See @ref cfsversions for format differences between development and release versions.
  */
-#define SCH_LAB_VERSION SCH_LAB_BUILD_BASELINE "+dev" SCH_LAB_STR(SCH_LAB_BUILD_NUMBER)
+#define SCH_LAB_VERSION SCH_LAB_BUILD_BASELINE "-rc" SCH_LAB_STR(SCH_LAB_BUILD_NUMBER) "-oss"
 
 /**
  * @brief Max Version String length.
